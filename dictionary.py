@@ -28,7 +28,7 @@ while True:
 
     choice = int(input("Enter your choice: "))
 
-    if choice == 1:
+    if choice == 11:
         print("\nPRODUCT LIST")
         print("-" * 60)
         print("ID\tName\t\tPrice\tStock")
@@ -37,7 +37,7 @@ while True:
         for pid, info in products.items():
             print(pid, "\t", info["name"], "\t\t", info["price"], "\t", info["stock"])
 
-    elif choice == 2:
+    elif choice == 22:
         search_name = input("Enter product name to search: ").lower()
 
         found = False
@@ -54,7 +54,7 @@ while True:
         if found == False:
             print("Product not found!")
 
-    elif choice == 3:
+    elif choice == 33:
         pid = int(input("Enter Product ID: "))
 
         if pid in products:
@@ -77,7 +77,7 @@ while True:
         else:
             print("Invalid Product ID!")
 
-    elif choice == 4:
+    elif choice == 44:
         pid = int(input("Enter Product ID: "))
 
         if pid in products:
@@ -87,7 +87,7 @@ while True:
         else:
             print("Invalid Product ID!")
 
-    elif choice == 5:
+    elif choice == 55:
         print("\nSALES REPORT")
         print("-" * 60)
         print("Product Name\tUnits Sold")
@@ -104,7 +104,7 @@ while True:
         print("-" * 60)
         print("Total Sales Amount =", total_sales_amount)
 
-    elif choice == 6:
+    elif choice == 66:
         total_value = 0
 
         for pid, info in products.items():
@@ -112,7 +112,7 @@ while True:
 
         print("Total Inventory Value =", total_value)
 
-    elif choice == 7:
+    elif choice == 77:
         print("Thank You for using Shop Inventory System.")
         break
 
