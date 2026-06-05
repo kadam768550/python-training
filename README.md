@@ -1,2 +1,0 @@
-# python-training
-python training
