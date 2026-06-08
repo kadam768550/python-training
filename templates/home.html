@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Shop Inventory System {% endblock %}
+
+{% block content %}
+<h1>Welcome to Shop Inventory System</h1>
+<p>products: {{ products_count|quantity }}</p>
+<h2> Latest Products </h2>
+<ul>
+    {% for product in latest_products %}
+        <li>
+            {{ product.name }} - 
+            {{ product.price }}
+            {{ product.quality}}
+            {{ product.quantity }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
