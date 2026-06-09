@@ -5,15 +5,15 @@
     </head>
     <body>
         <nav>
-            <a href="{{ url_for('products') }}">Products</a>
+            <a href="{{ url_for('product_list') }}">Products</a>
             <a href="{{ url_for('sales') }}">Sales</a>
             <a href="{{ url_for('suppliers') }}">Suppliers</a>
         </nav>
 
         <hr>
 
-        (% block content%)
-        (% endblock %)
+        {% block content %}
+        {% endblock %}
         <hr>
         <small>Shop inventory management system - Built with Flask python</small>
         </body>

@@ -3,21 +3,19 @@
 
 {% block content %}
 <h1>Products</h1>
-<p>products: {{ products_count|quantity }}</p>
+<p>products: {{ products|length }}</p>
 
 <table border="1">
     <tr>
         <th>Name</th>
         <th>Price</th>
         <th>Quality</th>
-        <th>Quantity</th>
     </tr>
     {% for product in products %}
     <tr>
         <td>{{ product.name }}</td>
         <td>{{ product.price }}</td>
         <td>{{ product.quality }}</td>
-        <td>{{ product.quantity }}</td>
     </tr>
     {% endfor %}
 </table>
