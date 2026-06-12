@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Shop Inventory System {% endblock %}
+{%block title %} Home - Shop Inventory System {% endblock %}
 
 {% block content %}
-<h1>Welcome to Shop Inventory System</h1>
+<h1>Welcome to the Shop Inventory System</h1>
 <p>products: {{ products|length }}</p>
 <h2> Latest Products </h2>
 <ul>
-    {% for product in latest_products %}
+    {% for product in products %}
         <li>
             {{ product.name }} - 
             {{ product.price }}
-            {{ product.quality}}
+            {{ product.stock}}
         </li>
     {% endfor %}
 </ul>

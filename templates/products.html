@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block title %}Products - Shop Inventory System {% endblock %}
 
 {% block content %}
@@ -9,13 +9,13 @@
     <tr>
         <th>Name</th>
         <th>Price</th>
-        <th>Quality</th>
+        <th>Stock</th>
     </tr>
     {% for product in products %}
     <tr>
         <td>{{ product.name }}</td>
         <td>{{ product.price }}</td>
-        <td>{{ product.quality }}</td>
+        <td>{{ product.stock }}</td>
     </tr>
     {% endfor %}
 </table>
