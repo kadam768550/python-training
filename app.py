@@ -4,9 +4,9 @@ app = Flask(__name__)
 
 prod = [
     {"name": "Laptop", "price": 50000, "stock": 10, "quality": "Good"},
-    {"name": "Mouse", "price": 500, "stock": 50, "quality": "Average"},
-    {"name": "Keyboard", "price": 1200, "stock": 30, "quality": "Good"},
-    {"name": "Monitor", "price": 10000, "stock": 15, "quality": "Average"}
+    {"name": "Mouse", "price": 800, "stock": 50, "quality": "Average"},
+    {"name": "Keyboard", "price": 1000, "stock": 30, "quality": "Good"},
+    {"name": "Monitor", "price": 15000, "stock": 15, "quality": "Average"}
 ]
 
 @app.route('/')
