@@ -3,25 +3,24 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 prod = [
-    {"name": "Laptop", "price": 50000, "quality": "Good"},
-    {"name": "Mouse", "price": 1000, "quality": "Excellent"},
-    {"name": "Keyboard", "price": 2000, "quality": "Average"},
-    {"name": "Smartphone", "price": 30000, "quality": "Good"}
+    {"name": "Laptop", "price": 50000, "stock": 10, "quality": "Good"},
+    {"name": "Mouse", "price": 500, "stock": 50, "quality": "Average"},
+    {"name": "Keyboard", "price": 1200, "stock": 30, "quality": "Good"},
+    {"name": "Monitor", "price": 10000, "stock": 15, "quality": "Average"}
 ]
 
 @app.route('/')
 def home():
-    return render_template('home.html',products=prod,latest_products=prod[:3])
-@app.route('/sales')
-def sales():
-    return render_template('Sales.html')
-@app.route('/suppliers')
-def suppliers():
-    return render_template('Suppliers.html')
+    return render_template('home.html')
+ 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/products')
-def product_list():
-    return render_template('products.html',products=prod)
+def products():
+    return render_template('products.html', products=prod)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-
