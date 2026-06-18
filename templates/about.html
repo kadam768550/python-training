@@ -2,8 +2,26 @@
 {% block title %} About - Shop Inventory System {% endblock %}
 
 {% block content %}
-<h1>About Shop Inventory System</h1>
-<p>Shop Inventory System is a simple web application designed to help manage and track products in a shop. It allows users to view product details, including name, price, quality, and quantity. The system provides an easy-to-use interface for shop owners to keep their inventory organized and up-to-date.</p>
-<p><a href="{{ url_for('home') }}"><--Back to Home</a></p>
-
-{% endblock %}
+<div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-2">About This project</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">This project is a simple shop inventory system built using Flask, a lightweight web framework in Python. It allows users to manage their products, including adding new products, viewing product details, and keeping track of inventory.</p>
+            <hr>
+            <h5 class="mb-2">Technologies Used</h5>
+            <ul>
+                <li>Python 3.14</li>
+                <li>Flask web framework</li>
+                <li>Jinja2 template engine</li>
+                <li>Bootstrap</li>
+                <a href="{{url_for('home')}}"
+                class="btn btn-primary mt-3">Back to Home</a>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+                {% endblock %}

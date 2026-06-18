@@ -1,18 +1,24 @@
-{% extends "base.html" %}
-
-{%block title %} Home - Shop Inventory System {% endblock %}
-
+{% extends 'base.html' %}
+{% block title %} Home - Shop Inventory System {% endblock %}
 {% block content %}
-<h1>Welcome to the Shop Inventory System</h1>
-<p>products: {{ products|length }}</p>
-<h2> Latest Products </h2>
-<ul>
-    {% for product in products %}
-        <li>
-            {{ product.name }} - 
-            {{ product.price }}
-            {{ product.stock}}
-        </li>
-    {% endfor %}
-</ul>
+<div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+        <h1>Welcome to the Shop Inventory System</h1>
+        <span class="badge bg-info ms-3">Manage Your Products
+            {{products|length}} Products
+        </span>
+    </div>
+<div class="row">
+{% for product in products %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">Price: ${{ product.price }}</p>
+                <p class="card-text">Stock: {{ product.stock }}</p>
+                <p class="card-text">Quality: {{ product.quality }}</p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
 {% endblock %}
