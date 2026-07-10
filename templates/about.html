@@ -1,27 +1,67 @@
 {% extends "base.html" %}
-{% block title %} About - Shop Inventory System {% endblock %}
+
+{% block title %}
+About
+{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: 200px;">
-    <div class="col-md-8">
-        <div class="card shadow">
-            <div class="card-header bg-secondary text-white">
-                <h4 class="mb-2">About This project</h4>
-            </div>
-            <div class="card-body">
-                <p class="card-text">This project is a simple shop inventory system built using Flask, a lightweight web framework in Python. It allows users to manage their products, including adding new products, viewing product details, and keeping track of inventory.</p>
-            <hr>
-            <h5 class="mb-2">Technologies Used</h5>
-            <ul>
-                <li>Python 3.14</li>
-                <li>Flask web framework</li>
-                <li>Jinja2 template engine</li>
-                <li>Bootstrap</li>
-                <a href="{{url_for('home')}}"
-                class="btn btn-primary mt-3">Back to Home</a>
-            </ul>
-        </div>
-    </div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h2 class="text-primary">
+About Shop Inventory System
+</h2>
+
+<hr>
+
+<p>
+
+This Shop Inventory System is developed using
+<b>Python Flask</b> and <b>Bootstrap 5</b>.
+
+</p>
+
+<h4>Features</h4>
+
+<ul>
+
+<li>Home Dashboard</li>
+
+<li>View Products</li>
+
+<li>Search Products</li>
+
+<li>Filter by Category</li>
+
+<li>Bootstrap Responsive Design</li>
+
+</ul>
+
+<h4>Technology Used</h4>
+
+<table class="table table-bordered">
+
+<tr>
+<th>Frontend</th>
+<td>HTML, CSS, Bootstrap</td>
+</tr>
+
+<tr>
+<th>Backend</th>
+<td>Python Flask</td>
+</tr>
+
+<tr>
+<th>Database</th>
+<td>Python List (Temporary)</td>
+</tr>
+
+</table>
+
 </div>
+
 </div>
-                {% endblock %}
+
+{% endblock %}

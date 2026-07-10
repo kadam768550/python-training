@@ -1,24 +1,77 @@
-{% extends 'base.html' %}
-{% block title %} Home - Shop Inventory System {% endblock %}
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: 200px;">
-        <h1>Welcome to the Shop Inventory System</h1>
-        <span class="badge bg-info ms-3">Manage Your Products
-            {{products|length}} Products
-        </span>
-    </div>
-<div class="row">
-{% for product in products %}
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">Price: ${{ product.price }}</p>
-                <p class="card-text">Stock: {{ product.stock }}</p>
-                <p class="card-text">Quality: {{ product.quality }}</p>
-            </div>
-        </div>
-    </div>
-{% endfor %}
+
+<div class="p-5 mb-4 bg-primary text-white rounded">
+
+    <h1 class="display-4">
+        Welcome to Shop Inventory System
+    </h1>
+
+    <p class="lead">
+        Manage Products, Search Items and Filter Categories easily using Flask.
+    </p>
+
+    <a href="/products" class="btn btn-warning btn-lg">
+        View Products
+    </a>
+
 </div>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h4>Total Products</h4>
+
+<h2 class="text-primary">5</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h4>Categories</h4>
+
+<h2 class="text-success">3</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h4>Status</h4>
+
+<h2 class="text-danger">Active</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 {% endblock %}

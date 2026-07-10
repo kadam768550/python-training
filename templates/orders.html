@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4 text-primary">Customer Orders</h2>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td>101</td>
+            <td>Rahul</td>
+            <td>Laptop</td>
+            <td>1</td>
+            <td>₹55,000</td>
+            <td><span class="badge bg-success">Delivered</span></td>
+        </tr>
+
+        <tr>
+            <td>102</td>
+            <td>Priya</td>
+            <td>Mobile</td>
+            <td>2</td>
+            <td>₹40,000</td>
+            <td><span class="badge bg-warning text-dark">Pending</span></td>
+        </tr>
+
+        <tr>
+            <td>103</td>
+            <td>Amit</td>
+            <td>Keyboard</td>
+            <td>3</td>
+            <td>₹2,400</td>
+            <td><span class="badge bg-info">Processing</span></td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+{% endblock %}
