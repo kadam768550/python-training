@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 
 app = Flask(__name__)
+app.secret_key = 'My Secret Key' #Needed for flashing messages
 
 products = [
     {
@@ -75,15 +76,16 @@ def add_product():
         new_product = {
             "id": len(products) + 1,
             "name": request.form["name"],
-            "price": int(request.form["price"])
-            
+            "category": request.form["category"],
+            "price": int(request.form["price"]),
+            "stock": int(request.form["stock"])
         }
         products.append(new_product)
+        flash("Product added successfully!", "success")
+        print("Updated Products List:", products)  # Debugging line to check the updated products list
         return render_template("product.html", products=products)
 
     return render_template("add_product.html")
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
