@@ -1,4 +1,8 @@
+from mimetypes import init
+
 from flask import Flask, render_template, request, flash
+
+from database import get_db, init_db # Importing the database connection function
 
 app = Flask(__name__)
 app.secret_key = 'My Secret Key' #Needed for flashing messages
@@ -80,7 +84,22 @@ def add_product():
             "price": int(request.form["price"]),
             "stock": int(request.form["stock"])
         }
+
+        if not new_product["name"] or not new_product["category"] or new_product["price"] <= 0 or new_product["stock"] < 0:
+            flash("Please fill in all fields correctly.", "error")
+            return render_template("add_product.html")
+        
+        conn = get_db()
+        conn.execute(''' INSERT INTO products 
+                    (name, category, price, stock) VALUES (?, ?, ?, ?)''', 
+                    (new_product["name"], new_product["category"], new_product["price"], new_product["stock"]))
+       
+        conn.commit()
+        conn.close()
+        
+
         products.append(new_product)
+        # Flash message to user
         flash("Product added successfully!", "success")
         print("Updated Products List:", products)  # Debugging line to check the updated products list
         return render_template("product.html", products=products)
@@ -88,4 +107,5 @@ def add_product():
     return render_template("add_product.html")
 
 if __name__ == "__main__":
+    init_db()  # Initialize the database
     app.run(debug=True)
