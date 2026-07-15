@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, url_for
 
 app = Flask(__name__)
 app.secret_key = 'my secret key'  
@@ -26,7 +26,7 @@ def init_db():
     @app.route("/")
     def home():
         conn = get_db()
-        products = conn.execute("SELECT * FROM products ORDER BY id DESC").fetchall()
+        products = conn.execute("SELECT * FROM products").fetchall()
         conn.close()
         return render_template("home.html", products=products)
     
@@ -58,6 +58,17 @@ def init_db():
     return render_template("product.html", products=products)
 
     return render_template("add_product.html")
+
+@app.route('/delete/<int:id>')
+def delete_product(id):
+   conn = get_db()
+
+   product = conn.execute('DELETE FROM products WHERE id = ?', (id,))
+   conn.commit()
+   conn.close()
+
+   flash(f"{product['name']} deleted", 'success')
+   return redirect(url_for('product_page'))
 
 
         
