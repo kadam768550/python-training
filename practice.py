@@ -26,7 +26,7 @@ def init_db():
     @app.route("/")
     def home():
         conn = get_db()
-        products = conn.execute("SELECT * FROM products").fetchall()
+        products = conn.execute("SELECT * FROM products ORDER BY id DESC").fetchall()
         conn.close()
         return render_template("home.html", products=products)
     
@@ -61,7 +61,7 @@ def init_db():
 
 @app.route('/delete/<int:id>')
 def delete_product(id):
-   conn = get_db()
+   conn = get_db(id)
 
    product = conn.execute('DELETE FROM products WHERE id = ?', (id,))
    conn.commit()
