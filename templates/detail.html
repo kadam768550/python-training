@@ -9,7 +9,7 @@
         <!--Detail card-->
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3"
-                style="background-color: #5f3fle;">
+                style="background-color: #5f3f1e;">
                 <h4 class="mb-0 text-white">
                     Product Detail
                 </h4>
@@ -19,8 +19,8 @@
                  <div class="text-center mb-4">
                     <div class="avatar rounded-circle bg-secondary text-white
                                 d-inline-flex align-items-center justify-content-center"
-                         style="width: 80px; height: 80px; font-size: 36px;">
-                        {{ products[0].name[0] | upper }}
+                         style="width: 80px; height: 80px; font-size: 30px;">
+                        {{ product[0].name[0] | upper }}
                     </div>
                     <h3 class="fw-bold">{{ products['name'] }}</h3>
                 </div>
@@ -29,15 +29,15 @@
                 <table class="table tabale-borderless">
                     <tr>
                         <th class="text-muted fw-bold">Category:</th>
-                        <td>{{ products['category']}}</td>
+                        <td>{{ products['category'] }}</td>
                     </tr>
                     <tr>
                         <th class>="text-muted fw-bold">Price:</th>
-                        <td>{{ products['price']}}</td>
+                        <td>{{ products['price'] }}</td>
                     </tr>
                     <tr>
                         <td class>="text-muted fw-bold">Stock:</td>
-                        <td>{{ products['stock']}}</td>
+                        <td>{{ products['stock'] }}</td>
                     </tr>
                 </table>
             </div>

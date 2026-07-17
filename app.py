@@ -1,6 +1,6 @@
 from mimetypes import init
 
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 from database import get_db, init_db # Importing the database connection function
 
@@ -69,17 +69,17 @@ def product():
     conn = get_db()
     products = conn.execute("SELECT * FROM products ORDER BY id DESC").fetchall()
     conn.close()
-    return render_template("product.html", products=products)
+    return render_template("products.html", products=products)
 
-@app.route("/edit/<int:id>")
-def edit_product(id):
+@app.route("/products/<int:id>")
+def product_detail(id):
     conn = get_db()
     product = conn.execute("SELECT * FROM products WHERE id = ?", (id,)).fetchone()
     conn.close()
 
     if product is None:
         flash("Product not found.", "danger")
-        return render_template("product.html", products=products)
+        return redirect(url_for("product")) #Function name of your products page
 
     return render_template("detail.html", product=product)
 
@@ -126,7 +126,7 @@ def delete_product(id):
     if product is None:
         flash("Product not found.", "danger")
         conn.close()
-        return render_template("product.html", products=products)
+        return redirect(url_for('product'))
 
     conn.execute('DELETE FROM products WHERE id = ?', (id,))
     conn.commit()
