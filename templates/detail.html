@@ -3,49 +3,56 @@
 
 {% block content %}
 
-<div class="row" justify-content-center">
-    <div class="col_md_6">
+<div class="row justify-content-center">
+    <div class="col-md-6">
 
-        <!--Detail card-->
-        <div class="card shadow-sm mb-4">
-            <div class="card-header py-3"
-                style="background-color: #5f3f1e;">
-                <h4 class="mb-0 text-white">
-                    Product Detail
-                </h4>
+        <!--Detail card-->>
+        <div class="card shadow-sm">
+            <div class="card-header text-white py-3" style="background-color:#5f3f1e;">
+                <h4 class="mb-0">Product Detail</h4>
             </div>
-            <div class="card-body p-4">
-                <!-- Avatar -->
-                 <div class="text-center mb-4">
+
+            <div class="card-body">
+                
+                <!--Avatar-->>
+                <div class="text-center mb-4">
                     <div class="avatar rounded-circle bg-secondary text-white
-                                d-inline-flex align-items-center justify-content-center"
-                         style="width: 80px; height: 80px; font-size: 30px;">
-                        {{ product[0].name[0] | upper }}
+                    d-inline-flex align-items-center justify-content-center"
+                    style="width:80px;height:80px;font-size:30px;">
+                        {{ product.name[0] | upper }}
                     </div>
-                    <h3 class="fw-bold">{{ products['name'] }}</h3>
+
+                    <h3 class="mt-3">{{ product.name }}</h3>
                 </div>
 
-                <!-- Details -->
-                <table class="table tabale-borderless">
+                <!--Details-->>
+                <table class="table table-borderless">
+            
+
                     <tr>
-                        <th class="text-muted fw-bold">Category:</th>
-                        <td>{{ products['category'] }}</td>
+                        <th>Category :</th>
+                        <td>{{ product.category }}</td>
                     </tr>
+
                     <tr>
-                        <th class>="text-muted fw-bold">Price:</th>
-                        <td>{{ products['price'] }}</td>
+                        <th>Price :</th>
+                        <td>₹{{ product.price }}</td>
                     </tr>
+
                     <tr>
-                        <td class>="text-muted fw-bold">Stock:</td>
-                        <td>{{ products['stock'] }}</td>
+                        <th>Stock :</th>
+                        <td>{{ product.stock }}</td>
                     </tr>
                 </table>
+
+                <a href="{{ url_for('product') }}" class="btn btn-secondary">
+                    Back
+                </a>
+
             </div>
         </div>
+
     </div>
 </div>
-                    
+
 {% endblock %}
-
-
-    

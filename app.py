@@ -71,6 +71,25 @@ def product():
     conn.close()
     return render_template("products.html", products=products)
 
+#DELETE - remove by ID
+@app.route('/delete/<int:id>')
+def delete_product(id):
+    conn = get_db()
+
+    # First Check if it exists
+    product = conn.execute('SELECT * FROM products WHERE id = ?', (id,)).fetchone()
+    if product is None:
+        flash("Product not found.", "danger")
+        conn.close()
+        return redirect(url_for('product'))
+
+    conn.execute('DELETE FROM products WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+
+    flash("Product deleted successfully!", "success")
+    return redirect(url_for('product'))
+
 @app.route("/products/<int:id>")
 def product_detail(id):
     conn = get_db()
@@ -112,28 +131,10 @@ def add_product():
         # Flash message to user
         flash("Product added successfully!", "success")
         print("Updated Products List:", products)  # Debugging line to check the updated products list
-        return render_template("product.html", products=products)
+        return render_template("products.html", products=products)
 
     return render_template("add_product.html")
 
-#DELETE - remove by ID
-@app.route('/delete/<int:id>')
-def delete_product(id):
-    conn = get_db()
-
-    # First Check if it exists
-    product = conn.execute('SELECT * FROM products WHERE id = ?', (id,)).fetchone()
-    if product is None:
-        flash("Product not found.", "danger")
-        conn.close()
-        return redirect(url_for('product'))
-
-    conn.execute('DELETE FROM products WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-
-    flash("Product deleted successfully!", "success")
-    return redirect(url_for('product'))
 
 
 @app.route("/about")
