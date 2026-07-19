@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Edit Product — {{product['name']}}{% endblock %}
+
+{% block content %}
+
+<div class="row" justify-content center">
+<div class="col-md-6">
+
+<div class="card shadow-sm">
+    <div class="card-header py-3" style="background-color: #5f1e3a;">
+        <h5 class="mb-0 text-white">
+            ✏️ Edit Product
+        </h5>
+    </div>
+
+    <div class="card-body p-4">
+        <!--Current values info -->
+        <div class="alert alert-info" py-2 mb-4">
+            <small>
+                <strong>Editing: </strong>
+                {{ product['name'] }}
+                Category: {{product['category']}}-
+                Price: {{product['price'] }}-
+                Stock: {{product['stock']}}
+            </small>
+        </div>
+
+        <form action="{{url_for('edit_product',id=product['id'])}}"
+              method="POST">
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Product Name</label>
+              
+              <input required
+                     name="product_name"
+                     class="form-control"
+                     placeholder="Enter Product Name"
+                     type="text"
+                     value="{{ product['name'] }}">
+              </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Category</label>
+                <input required
+                       name="category"
+                       class="form-control"
+                       placeholder="Enter Category"
+                       type="text"
+                       value="{{ product['category'] }}">
+                </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Price</label>
+                <input required
+                       name="price"
+                       min="0"
+                       class="form-control"
+                       placeholder="Enter Price"
+                       type="number"
+                       value="{{ product['price'] }}">
+                </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Stock</label>
+                <input required
+                        name="stock"
+                        min="0"
+                        class="form-control"
+                        placeholder="Enter Stock"
+                        type="number"
+                        value="{{ product['stock'] }}">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Discount (%)</label>
+                <input 
+                       name="discount"
+                       min="0"
+                       max="100"
+                       class="form-control"
+                       placeholder="Enter Discount"
+                       type="number"
+                       value="{{ product['discount'] }}">
+                </div>
+
+            
+            <div class="d-grid">
+                <button type="submit" class="btn btn-warning fw-bold">
+                    Save Changes
+                </button>
+                <a href="{{ url_for('product') }}"
+                   class="btn btn-outline-secondary mt-2">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+
+{% endblock %}

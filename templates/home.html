@@ -1,76 +1,154 @@
 {% extends "base.html" %}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home - Shop Inventory System{% endblock %}
 
 {% block content %}
 
-<div class="p-5 mb-4 bg-primary text-white rounded">
+<!-- Hero Section -->
+<div class="p-5 mb-5 rounded-4 text-white shadow"
+     style="background: linear-gradient(135deg,#0d6efd,#6610f2);">
 
-    <h1 class="display-4">
-        Welcome to Shop Inventory System
-    </h1>
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-4 fw-bold">
+                📦 Shop Inventory System
+            </h1>
 
-    <p class="lead">
-        Manage Products, Search Items and Filter Categories easily using Flask.
-    </p>
+            <p class="lead">
+                Manage your products, monitor stock, organize categories,
+                and keep your inventory updated with ease.
+            </p>
 
-    <a href="/products" class="btn btn-warning btn-lg">
-        View Products
-    </a>
+            <a href="{{ url_for('product') }}" class="btn btn-warning btn-lg me-2">
+                📋 View Products
+            </a>
+
+            <a href="{{ url_for('add_product') }}" class="btn btn-light btn-lg">
+                ➕ Add Product
+            </a>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3082/3082028.png"
+                 width="220"
+                 class="img-fluid">
+        </div>
+    </div>
 
 </div>
 
-<div class="row">
+<!-- Dashboard Cards -->
 
-<div class="col-md-4">
+<div class="row g-4 mb-5">
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow text-center h-100">
+            <div class="card-body">
+                <h1>📦</h1>
+                <h4>Total Products</h4>
+                <h2 class="text-primary">{{ total }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow text-center h-100">
+            <div class="card-body">
+                <h1>📂</h1>
+                <h4>Categories</h4>
+                <h2 class="text-success">
+                    {{ products|map(attribute='category')|unique|list|length }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow text-center h-100">
+            <div class="card-body">
+                <h1>✅</h1>
+                <h4>Status</h4>
+                <h2 class="text-danger">Active</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Product Table -->
 
 <div class="card shadow">
 
-<div class="card-body">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">📋 Product List</h4>
+    </div>
 
-<h4>Total Products</h4>
+    <div class="card-body">
 
-<h2 class="text-primary"></h2>
+        <div class="table-responsive">
 
-</div>
+            <table class="table table-hover table-bordered align-middle">
 
-</div>
+                <thead class="table-warning">
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
 
-</div>
+                <tbody>
 
-<div class="col-md-4">
+                {% for product in products %}
 
-<div class="card shadow">
+                    <tr>
 
-<div class="card-body">
+                        <td>{{ product.name }}</td>
 
-<h4>Categories</h4>
+                        <td>{{ product.category }}</td>
 
-<h2 class="text-success"></h2>
+                        <td>₹{{ product.price }}</td>
 
-</div>
+                        <td>
+                            {% if product.stock > 10 %}
+                                <span class="badge bg-success">{{ product.stock }}</span>
+                            {% elif product.stock > 0 %}
+                                <span class="badge bg-warning text-dark">{{ product.stock }}</span>
+                            {% else %}
+                                <span class="badge bg-danger">Out of Stock</span>
+                            {% endif %}
+                        </td>
 
-</div>
+                        <td>
 
-</div>
+                            <a href="{{ url_for('product_detail', id=product.id) }}"
+                               class="btn btn-info btn-sm">
+                                View
+                            </a>
 
-<div class="col-md-4">
+                        </td>
 
-<div class="card shadow">
+                    </tr>
 
-<div class="card-body">
+                {% else %}
 
-<h4>Status</h4>
+                    <tr>
+                        <td colspan="6" class="text-center text-danger">
+                            No Products Available
+                        </td>
+                    </tr>
 
-<h2 class="text-danger">Active</h2>
+                {% endfor %}
 
-</div>
+                </tbody>
 
-</div>
+            </table>
 
-</div>
+        </div>
+
+    </div>
 
 </div>
 

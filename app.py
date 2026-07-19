@@ -1,6 +1,6 @@
 from mimetypes import init
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, abort, render_template, request, redirect, url_for, flash
 
 from database import get_db, init_db # Importing the database connection function
 
@@ -9,35 +9,30 @@ app.secret_key = 'My Secret Key' #Needed for flashing messages
 
 products = [
     {
-        "id": 1,
         "name": "Laptop",
         "category": "Electronics",
         "price": 55000,
         "stock": 10
     },
     {
-        "id": 2,
         "name": "Mobile",
         "category": "Electronics",
         "price": 20000,
         "stock": 15
     },
     {
-        "id": 3,
         "name": "Keyboard",
         "category": "Accessories",
         "price": 800,
         "stock": 25
     },
     {
-        "id": 4,
         "name": "Mouse",
         "category": "Accessories",
         "price": 500,
         "stock": 30
     },
     {
-        "id": 5,
         "name": "Printer",
         "category": "Office",
         "price": 12000,
@@ -47,7 +42,14 @@ products = [
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    conn = get_db()
+
+    #All products from database
+    products = conn.execute('SELECT * FROM products ORDER BY id DESC').fetchall()
+    
+    #Stats using count
+    total = conn.execute('SELECT COUNT(*) FROM products').fetchone()[0]
+    return render_template("home.html", products=products, total=total)
 
 @app.route("/login")
 def login():
@@ -125,9 +127,7 @@ def add_product():
        
         conn.commit()
         conn.close()
-        
 
-        products.append(new_product)
         # Flash message to user
         flash("Product added successfully!", "success")
         print("Updated Products List:", products)  # Debugging line to check the updated products list
@@ -135,6 +135,42 @@ def add_product():
 
     return render_template("add_product.html")
 
+    #EDIT - update by ID
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_product(id):
+    conn = get_db()
+
+    if request.method == 'POST':
+        name = request.form['product_name']
+        category = request.form['category']
+        price = request.form['price']
+        stock = request.form['stock']
+
+        if not name:
+            flash('Name cannot be empty','danger')
+            return redirect(url_for('edit_product',id=id))
+
+        # UPDATE record
+        conn.execute("""
+            UPDATE products
+            SET name = ?, category = ?, price = ?, stock = ?
+            WHERE id = ?
+        """, (name, category, price, stock, id))
+
+        conn.commit()
+        conn.close()
+
+        flash(f'{name} updated successfully!', "success")
+        return redirect(url_for('product'))
+    
+    #GET - fetch exisiting record
+    product = conn.execute('SELECT * FROM products WHERE id = ?',(id,)).fetchone()
+    conn.close()
+
+    if product is None:
+        abort(404) # trigger 404.html
+
+    return render_template("edit_product.html", product=product) 
 
 
 @app.route("/about")
