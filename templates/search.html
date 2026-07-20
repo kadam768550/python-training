@@ -1,34 +1,40 @@
 {% extends "base.html" %}
-{% block title %}Search Results — Shop Inventory System {% endblock %}
+{% block title %}Search Results — Shop Inventory System{% endblock %}
 
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class = "fw-bold mb-1">Search Results</h2>
-    <a href = "{{url_for('product')}}" class = "btn btn-warning btn-sm">
+    <h2 class="fw-bold mb-1">Search Results</h2>
+
+    <a href="{{ url_for('product') }}" class="btn btn-warning btn-sm">
         ← All Products
-        </a>
+    </a>
 </div>
 
 {% if query %}
-<div class = "alert alert-info justify-content-between align-items-center align-items-center">
+<div class="alert alert-info d-flex justify-content-between align-items-center">
     <span>
-        <strong>{{query}}</strong>
-        <strong>{{products|length}}</strong> results
+        Search :
+        <strong>"{{ query }}"</strong> |
+        <strong>{{ products|length }}</strong> Result(s)
     </span>
-    <a href = "{{url_for('search')}}" class = "btn btn-secondary btn-sm">
-    Clear
+
+    <a href="{{ url_for('search') }}" class="btn btn-secondary btn-sm">
+        Clear
     </a>
 </div>
 {% endif %}
-<!--Results-->
 
 {% if products %}
+
 <div class="card shadow-sm">
     <div class="card-body p-0">
+
         <div class="table-responsive">
+
             <table class="table table-hover mb-0">
-                <thead style="background-color: #1e3a5f; color:white;">
+
+                <thead style="background-color:#1e3a5f; color:white;">
                     <tr>
                         <th class="py-3 ps-4">#</th>
                         <th class="py-3">Name</th>
@@ -38,38 +44,103 @@
                         <th class="py-3 text-center">Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    {% for product in products %}
+
+                {% for product in products %}
+
                     <tr class="align-middle">
-                        <td class="ps-4 text-muted">
-                            {{ loop.index }}
-                        </td>
+
+                        <td>{{ loop.index }}</td>
+
                         <td>
                             <div class="d-flex align-items-center">
-                                <div class="rounded-circle d-flex justify-content-center align-items-center me-2"
-                                     style="width:30px; height:30px; background-color:#1e3a5f; color:white;">
+
+                                <div
+                                    class="rounded-circle d-flex justify-content-center align-items-center me-2"
+                                    style="width:32px;height:32px;background:#1e3a5f;color:white;">
                                     {{ product['name'][0] }}
                                 </div>
-                                <span class="fw-bold">{{ product['name'] }}</span>
+
+                                <strong>{{ product['name'] }}</strong>
+
                             </div>
                         </td>
-                        <td> 
-                            <span class="badge bg-secondary">{{ product['category'] }}</span>
-                        </td>
+
                         <td>
-                            <span class="badge bg-danger">{{ product['price'] }}</span>
+                            <span class="badge bg-secondary">
+                                {{ product['category'] }}
+                            </span>
                         </td>
+
                         <td>
-                            <span class="badge bg-success">{{ product['stock'] }}</span>
+                            <span class="badge bg-danger">
+                                ₹{{ product['price'] }}
+                            </span>
+                        </td>
+
+                        <td>
+
+                            {% if product['stock'] > 10 %}
+                                <span class="badge bg-success">
+                                    {{ product['stock'] }}
+                                </span>
+
+                            {% elif product['stock'] > 0 %}
+                                <span class="badge bg-warning text-dark">
+                                    {{ product['stock'] }}
+                                </span>
+
+                            {% else %}
+                                <span class="badge bg-danger">
+                                    Out of Stock
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <!-- ACTION BUTTONS -->
+
+                        <td class="text-center">
+
+                            <a href="{{ url_for('product_detail', id=product['id']) }}"
+                               class="btn btn-info btn-sm">
+                                👁 View
+                            </a>
+
+                            <a href="{{ url_for('edit_product', id=product['id']) }}"
+                               class="btn btn-warning btn-sm">
+                                ✏ Edit
+                            </a>
+
+                            <a href="{{ url_for('delete_product', id=product['id']) }}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this product?');">
+                                🗑 Delete
+                            </a>
+
                         </td>
 
                     </tr>
-                    {% endfor %}
+
+                {% endfor %}
+
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
 </div>
-{% endif %} 
-{% endblock %}
 
+{% else %}
+
+<div class="alert alert-warning text-center shadow-sm">
+    <h5>No products found.</h5>
+    <p class="mb-0">Try another product name or category.</p>
+</div>
+
+{% endif %}
+
+{% endblock %}

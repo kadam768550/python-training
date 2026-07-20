@@ -1,50 +1,31 @@
 {% extends "base.html" %}
-
-{% block title %}
-Products
-{% endblock %}
+{% block title %}Products{% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4 text-primary">
-Product List
-</h2>
-
+<h2 class="mb-4 text-primary">Product List</h2>
 <table class="table table-bordered table-hover shadow">
-
 <thead class="table-dark">
-
 <tr>
+
 <th>#</th>
-
 <th>Name</th>
-
 <th>Category</th>
-
 <th>Price</th>
-
 <th>Stock</th>
-
 <th>Action</th>
 
 </tr>
-
 </thead>
-
 <tbody>
 
 {% for product in products %}
-
 <tr>
 
 <td>{{ loop.index }}</td>
-
 <td>{{ product.name }}</td>
-
 <td>{{ product.category }}</td>
-
 <td>₹{{ product.price }}</td>
-
 <td>{{ product.stock }}</td>
 
 <td>
@@ -62,12 +43,9 @@ Product List
 </a>
 
 </td>
-
 </tr>
 
 {% endfor %}
-
 </tbody>
-
 </table>
 {% endblock %}
