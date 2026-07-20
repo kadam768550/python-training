@@ -7,61 +7,135 @@ About
 {% block content %}
 
 <div class="card shadow">
+    <div class="card-body">
 
-<div class="card-body">
+        <h2 class="text-primary">
+            🛒 About Shop Inventory System
+        </h2>
 
-<h2 class="text-primary">
-About Shop Inventory System
-</h2>
+        <hr>
 
-<hr>
+        <p class="lead">
+          # The <b>Shop Inventory System</b> is a simple inventory management
+            web application developed using <b>Python Flask</b> and
+            <b>Bootstrap 5</b>. 
+        </p>
+        <p class="lead">
+          # It helps shop owners manage products,stock quantity,
+            prices, and categories in an organized way.
+        </p>
 
-<p>
+        <h4 class="mt-4">🎯 Project Objective</h4>
 
-This Shop Inventory System is developed using
-<b>Python Flask</b> and <b>Bootstrap 5</b>.
+        <p>
+          # The main objective of this project is to provide an easy and
+            user-friendly system for managing shop inventory efficiently.
+        </p>
+        <p>
+          # It reduces manual work and keeps product information organized.
+        </p>
 
-</p>
+        <h4 class="mt-4">✨ Features</h4>
 
-<h4>Features</h4>
+        <ul>
+            <li>🏠 Home Dashboard</li>
+            <li>📦 View All Products</li>
+            <li>➕ Add New Product</li>
+            <li>✏️ Edit Product</li>
+            <li>🗑️ Delete Product</li>
+            <li>🔍 Search Products</li>
+            <li>📂 Filter Products by Category</li>
+            <li>📄 Product Details</li>
+            <li>💬 Flash Messages</li>
+            <li>📱 Responsive Bootstrap Design</li>
+            <li>⚠️ Custom 404 Error Page</li>
+        </ul>
 
-<ul>
+        <h4 class="mt-4">💻 Technologies Used</h4>
 
-<li>Home Dashboard</li>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Frontend</th>
+                <td>HTML5, CSS3, Bootstrap 5, Jinja2</td>
+            </tr>
 
-<li>View Products</li>
+            <tr>
+                <th>Backend</th>
+                <td>Python Flask</td>
+            </tr>
 
-<li>Search Products</li>
+            <tr>
+                <th>Database</th>
+                <td>SQLite3</td>
+            </tr>
 
-<li>Filter by Category</li>
+            <tr>
+                <th>Programming Language</th>
+                <td>Python</td>
+            </tr>
 
-<li>Bootstrap Responsive Design</li>
+            <tr>
+                <th>IDE</th>
+                <td>Visual Studio Code</td>
+            </tr>
+        </table>
 
-</ul>
+        <h4 class="mt-4">📊 System Modules</h4>
 
-<h4>Technology Used</h4>
+        <ul>
+            <li>Dashboard</li>
+            <li>Product Management</li>
+            <li>Inventory Management</li>
+            <li>Search Module</li>
+            <li>Category Management</li>
+        </ul>
 
-<table class="table table-bordered">
+        <h4 class="mt-4">✅ Benefits</h4>
 
-<tr>
-<th>Frontend</th>
-<td>HTML, CSS, Bootstrap</td>
-</tr>
+        <ul>
+            <li>Easy Product Management</li>
+            <li>Fast Product Search</li>
+            <li>Simple User Interface</li>
+            <li>Reduces Manual Work</li>
+            <li>Improves Inventory Accuracy</li>
+            <li>Saves Time and Effort</li>
+        </ul>
 
-<tr>
-<th>Backend</th>
-<td>Python Flask</td>
-</tr>
+        <h4 class="mt-4">🚀 Future Enhancements</h4>
 
-<tr>
-<th>Database</th>
-<td>Python List (Temporary)</td>
-</tr>
+        <ul>
+            <li>User Login & Authentication</li>
+            <li>Sales Management</li>
+            <li>Supplier Management</li>
+            <li>Invoice Generation</li>
+            <li>Barcode Scanner Support</li>
+            <li>Export to Excel/PDF</li>
+            <li>Reports & Analytics</li>
+            <li>Low Stock Alerts</li>
+        </ul>
 
-</table>
+        <h4 class="mt-4">👨‍💻 Developer</h4>
 
-</div>
+        <p>
+            This project is developed for learning Flask, SQLite,
+            CRUD Operations, Bootstrap, Routing, and Database Management.
+        </p>
 
+        <div class="alert alert-info mt-4">
+            <strong>Version:</strong> 1.0 <br>
+            <strong>Status:</strong> Active Development <br>
+            <strong>Framework:</strong> Flask <br>
+            <strong>Database:</strong> SQLite3
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('home') }}" class="btn btn-info btn-lg">
+                🏠 Back to Home
+            </a>
+        </div>
+
+    </div>
 </div>
 
 {% endblock %}

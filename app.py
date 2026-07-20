@@ -172,6 +172,27 @@ def edit_product(id):
 
     return render_template("edit_product.html", product=product) 
 
+@app.route("/search")
+def search():
+    #step 1 - get query from URL
+    q = request.args.get('q','')
+    # request.args - GET parameters
+    # 'q' - Form  - name = 'q'
+    conn = get_db()
+    
+    if q:
+        products = conn.execute('''SELECT * FROM products 
+                                WHERE name LIKE ? 
+                                OR category LIKE ?
+                                OR price LIKE ?
+                                OR stock LIKE ?''',
+                                (f'%{q}%', f'%{q}%', f'%{q}%' f'%{q}%')).fetchall()
+        
+    else:
+        products = conn.execute('SELECT * FROM products ORDER BY id DESC').fetchall()
+    conn.close()
+    return render_template("search.html", products=products, query=q)
+
 
 @app.route("/about")
 def about():
