@@ -5,7 +5,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class = "fw-bold mb-1">Search Results</h2>
-    <a href = "{{url_for('product')}}" class = "btn btn-secondary btn-sm">
+    <a href = "{{url_for('product')}}" class = "btn btn-warning btn-sm">
         ← All Products
         </a>
 </div>
@@ -21,5 +21,55 @@
     </a>
 </div>
 {% endif %}
+<!--Results-->
 
+{% if products %}
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead style="background-color: #1e3a5f; color:white;">
+                    <tr>
+                        <th class="py-3 ps-4">#</th>
+                        <th class="py-3">Name</th>
+                        <th class="py-3">Category</th>
+                        <th class="py-3">Price</th>
+                        <th class="py-3">Stock</th>
+                        <th class="py-3 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr class="align-middle">
+                        <td class="ps-4 text-muted">
+                            {{ loop.index }}
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle d-flex justify-content-center align-items-center me-2"
+                                     style="width:30px; height:30px; background-color:#1e3a5f; color:white;">
+                                    {{ product['name'][0] }}
+                                </div>
+                                <span class="fw-bold">{{ product['name'] }}</span>
+                            </div>
+                        </td>
+                        <td> 
+                            <span class="badge bg-secondary">{{ product['category'] }}</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-danger">{{ product['price'] }}</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-success">{{ product['stock'] }}</span>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %} 
 {% endblock %}
+

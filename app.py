@@ -186,13 +186,55 @@ def search():
                                 OR category LIKE ?
                                 OR price LIKE ?
                                 OR stock LIKE ?''',
-                                (f'%{q}%', f'%{q}%', f'%{q}%' f'%{q}%')).fetchall()
+                                (f'%{q}%', f'%{q}%', f'%{q}%', f'%{q}%')).fetchall()
         
     else:
         products = conn.execute('SELECT * FROM products ORDER BY id DESC').fetchall()
     conn.close()
     return render_template("search.html", products=products, query=q)
 
+@app.route("/filter")
+def filter_products():
+    conn = get_db()
+
+    category = request.args.get("category", "")
+    min_price = request.args.get("min_price", "")
+    max_price = request.args.get("max_price", "")
+
+    query = "SELECT * FROM products WHERE 1=1"
+    params = []
+
+    if category:
+        query += " AND category = ?"
+        params.append(category)
+
+    if min_price:
+        query += " AND price >= ?"
+        params.append(min_price)
+
+    if max_price:
+        query += " AND price <= ?"
+        params.append(max_price)
+
+    query += " ORDER BY id DESC"
+
+    products = conn.execute(query, params).fetchall()
+
+    # Category list for dropdown
+    categories = conn.execute(
+        "SELECT DISTINCT category FROM products"
+    ).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "filter.html",
+        products=products,
+        categories=categories,
+        selected_category=category,
+        min_price=min_price,
+        max_price=max_price
+    )
 
 @app.route("/about")
 def about():

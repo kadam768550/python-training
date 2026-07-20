@@ -93,6 +93,7 @@
 
                 <thead class="table-warning">
                     <tr>
+                        <th>#</th>
                         <th>Product</th>
                         <th>Category</th>
                         <th>Price</th>
@@ -106,6 +107,7 @@
                 {% for product in products %}
 
                     <tr>
+                        <td>{{ loop.index }}</td>
 
                         <td>{{ product.name }}</td>
 

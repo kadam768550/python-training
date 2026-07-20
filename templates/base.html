@@ -119,6 +119,12 @@
             ➕ Add Product
         </a>
 
+        <hr>
+
+        <a href="/filter" class="d-block text-decoration-none text-dark py-2">
+            🔍 Filter
+        </a>
+
         <form class="d-flex ms-3 mt-3" action="{{ url_for('search') }}" method="GET">
             <input class="form-control form-control-sm me-2" style="width:130px;
             height:35px" type="search" placeholder="Search" name="q">
@@ -130,23 +136,21 @@
 
 </div>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-    {% for category, message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endfor %}
-{% endif %}
-{% endwith %}
+<div class="container mt-4 mb-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
 <!-- Main Content -->
-<div class="container mt-4">
-
-    {% block content %}
+   {% block content %}
     {% endblock %}
-
 </div>
 
 <!-- Footer -->

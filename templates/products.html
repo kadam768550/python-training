@@ -15,6 +15,7 @@ Product List
 <thead class="table-dark">
 
 <tr>
+<th>#</th>
 
 <th>Name</th>
 
@@ -35,6 +36,8 @@ Product List
 {% for product in products %}
 
 <tr>
+
+<td>{{ loop.index }}</td>
 
 <td>{{ product.name }}</td>
 
