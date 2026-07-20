@@ -5,14 +5,12 @@
 
 <div class="row" justify-content center">
 <div class="col-md-6">
-
 <div class="card shadow-sm">
     <div class="card-header py-3" style="background-color: #5f1e3a;">
         <h5 class="mb-0 text-white">
             ✏️ Edit Product
         </h5>
     </div>
-
     <div class="card-body p-4">
         <!--Current values info -->
         <div class="alert alert-info" py-2 mb-4">
@@ -76,14 +74,13 @@
                 <input 
                        name="discount"
                        min="0"
-                       max="100"
+                       max="50"
                        class="form-control"
                        placeholder="Enter Discount"
                        type="number"
                        value="{{ product['discount'] }}">
                 </div>
 
-            
             <div class="d-grid">
                 <button type="submit" class="btn btn-warning fw-bold">
                     Save Changes
