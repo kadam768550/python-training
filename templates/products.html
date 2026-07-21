@@ -7,13 +7,23 @@
 
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h3 class="mb-0">
-            📦 Product Inventory
+            📦 Products Inventory
         </h3>
 
         <span class="badge bg-warning text-dark fs-6">
             Total Products : {{ products|length }}
         </span>
     </div>
+
+    <!-- Live Search -->
+<div class="mb-3">
+    <input type="text"
+           id="searchInput"
+           class="form-control form-control-lg"
+           placeholder="🔍 Type to search products by name...">   
+    <div id="resultInfo" class="text-muted small mt-1"></div>
+</div>
+
 
     <div class="card-body">
 
@@ -36,11 +46,11 @@
 
                 </thead>
 
-                <tbody>
+                <tbody id="tableBody">
 
                 {% for product in products %}
 
-                <tr>
+                <tr class="align-middle" data-name="{{ product.name|lower }}">
 
                     <td class="text-center fw-bold">
                         {{ loop.index }}
@@ -101,5 +111,25 @@
     </div>
 
 </div>
+<script>
+const searchInput = document.getElementById('searchInput');
+const allRows = document.querySelectorAll('#tableBody tr');
+const resultInfo = document.getElementById('resultInfo');
 
+searchInput.addEventListener('keyup', function() {
+    const query = this.value.toLowerCase();
+    let matchCount = 0;
+    allRows.forEach(function(row) {
+        const name = row.dataset.name || '';
+
+        if(name.includes(query)){
+            row.style.display = '';
+            matchCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+</script>
 {% endblock %}
