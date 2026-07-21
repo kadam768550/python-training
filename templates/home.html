@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Shop Inventory System{% endblock %}
+{% block title %}Home - SmartTech Store{% endblock %}
 
 {% block content %}
 
@@ -10,12 +10,19 @@
     <div class="row align-items-center">
         <div class="col-md-8">
             <h1 class="display-4 fw-bold">
-                📦 Shop Inventory System
+                🛒 SmartTech Store
             </h1>
 
             <p class="lead">
-                Manage your products, monitor stock, organize categories,
-                and keep your inventory updated with ease.
+              #  Your One-Stop Shop for Electronics & Accessories
+            </p>
+
+            <p class="lead">
+              #  Everthing Tech, All in One Place
+            </p>
+            
+            <p class="lead">
+              #  Smart Solutions for Smart People
             </p>
 
             <a href="{{ url_for('product') }}" class="btn btn-warning btn-lg me-2">
@@ -106,14 +113,10 @@
                             ₹{{ product.price }}
                         </td>
 
-                        <td>
-                            {% if product.stock > 10 %}
-                                <span class="badge bg-success">{{ product.stock }}</span>
-                            {% elif product.stock > 0 %}
-                                <span class="badge bg-warning text-dark">{{ product.stock }}</span>
-                            {% else %}
-                                <span class="badge bg-danger">Out of Stock</span>
-                            {% endif %}
+                        <td>  
+                            <span class="badge bg-success"> 
+                              {{ product.stock }}
+                            </span>
                         </td>
 
                         <td>

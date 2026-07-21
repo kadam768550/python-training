@@ -1,141 +1,275 @@
 {% extends "base.html" %}
 
-{% block title %}
-About
-{% endblock %}
+{% block title %}About - SmartTech Store{% endblock %}
 
 {% block content %}
 
-<div class="card shadow">
+<!-- Hero Section -->
+<div class="p-5 mb-4 rounded-4 text-white shadow"
+     style="background: linear-gradient(135deg,#0d6efd,#6610f2);">
+
+    <div class="text-center">
+        <h1 class="display-4 fw-bold">🏪 SmartTech Store</h1>
+        <p class="lead">
+            Your One-Stop Shop for Electronics, Computers & Accessories
+        </p>
+
+        <hr class="border-light">
+
+        <p>
+            SmartTech Store is a modern inventory management system built using
+            Python Flask, SQLite and Bootstrap 5.
+        </p>
+    </div>
+
+</div>
+
+<!-- About -->
+<div class="card shadow border-0 mb-4">
+
     <div class="card-body">
 
-        <h2 class="text-primary">
-            🛒 About Shop Inventory System
-        </h2>
+        <h2 class="text-primary mb-3">📖 About Us</h2>
 
-        <hr>
-
-        <p class="lead">
-          # The <b>Shop Inventory System</b> is a simple inventory management
-            web application developed using <b>Python Flask</b> and
-            <b>Bootstrap 5</b>. 
+        <p class="fs-5">
+            SmartTech Store provides a complete solution for managing electronic
+            products, computer accessories, networking devices, storage devices,
+            office equipment and many other technology products.
         </p>
-        <p class="lead">
-          # It helps shop owners manage products,stock quantity,
-            prices, and categories in an organized way.
-        </p>
-
-        <h4 class="mt-4">🎯 Project Objective</h4>
 
         <p>
-          # The main objective of this project is to provide an easy and
-            user-friendly system for managing shop inventory efficiently.
+            This project is designed to help shop owners manage products,
+            prices and stock in an easy, secure and organized way.
         </p>
-        <p>
-          # It reduces manual work and keeps product information organized.
-        </p>
-
-        <h4 class="mt-4">✨ Features</h4>
-
-        <ul>
-            <li>🏠 Home Dashboard</li>
-            <li>📦 View All Products</li>
-            <li>➕ Add New Product</li>
-            <li>✏️ Edit Product</li>
-            <li>🗑️ Delete Product</li>
-            <li>🔍 Search Products</li>
-            <li>📂 Filter Products by Category</li>
-            <li>📄 Product Details</li>
-            <li>💬 Flash Messages</li>
-            <li>📱 Responsive Bootstrap Design</li>
-            <li>⚠️ Custom 404 Error Page</li>
-        </ul>
-
-        <h4 class="mt-4">💻 Technologies Used</h4>
-
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th>Frontend</th>
-                <td>HTML5, CSS3, Bootstrap 5, Jinja2</td>
-            </tr>
-
-            <tr>
-                <th>Backend</th>
-                <td>Python Flask</td>
-            </tr>
-
-            <tr>
-                <th>Database</th>
-                <td>SQLite3</td>
-            </tr>
-
-            <tr>
-                <th>Programming Language</th>
-                <td>Python</td>
-            </tr>
-
-            <tr>
-                <th>IDE</th>
-                <td>Visual Studio Code</td>
-            </tr>
-        </table>
-
-        <h4 class="mt-4">📊 System Modules</h4>
-
-        <ul>
-            <li>Dashboard</li>
-            <li>Product Management</li>
-            <li>Inventory Management</li>
-            <li>Search Module</li>
-            <li>Category Management</li>
-        </ul>
-
-        <h4 class="mt-4">✅ Benefits</h4>
-
-        <ul>
-            <li>Easy Product Management</li>
-            <li>Fast Product Search</li>
-            <li>Simple User Interface</li>
-            <li>Reduces Manual Work</li>
-            <li>Improves Inventory Accuracy</li>
-            <li>Saves Time and Effort</li>
-        </ul>
-
-        <h4 class="mt-4">🚀 Future Enhancements</h4>
-
-        <ul>
-            <li>User Login & Authentication</li>
-            <li>Sales Management</li>
-            <li>Supplier Management</li>
-            <li>Invoice Generation</li>
-            <li>Barcode Scanner Support</li>
-            <li>Export to Excel/PDF</li>
-            <li>Reports & Analytics</li>
-            <li>Low Stock Alerts</li>
-        </ul>
-
-        <h4 class="mt-4">👨‍💻 Developer</h4>
-
-        <p>
-            This project is developed for learning Flask, SQLite,
-            CRUD Operations, Bootstrap, Routing, and Database Management.
-        </p>
-
-        <div class="alert alert-info mt-4">
-            <strong>Version:</strong> 1.0 <br>
-            <strong>Status:</strong> Active Development <br>
-            <strong>Framework:</strong> Flask <br>
-            <strong>Database:</strong> SQLite3
-        </div>
-
-        <!-- Back Button -->
-        <div class="text-center mt-4">
-            <a href="{{ url_for('home') }}" class="btn btn-info btn-lg">
-                🏠 Back to Home
-            </a>
-        </div>
 
     </div>
+
+</div>
+
+<!-- Mission & Vision -->
+
+<div class="row">
+
+<div class="col-md-6 mb-4">
+
+<div class="card border-success shadow h-100">
+
+<div class="card-header bg-success text-white">
+<h4>🎯 Our Mission</h4>
+</div>
+
+<div class="card-body">
+
+<p>
+To provide high-quality technology products with excellent customer service
+while making inventory management simple, fast and efficient.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<div class="card border-primary shadow h-100">
+
+<div class="card-header bg-primary text-white">
+<h4>🚀 Our Vision</h4>
+</div>
+
+<div class="card-body">
+
+<p>
+To become a trusted destination for computers, electronics and smart devices,
+offering reliable products at affordable prices.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Services -->
+
+<div class="card shadow mb-4">
+
+<div class="card-header bg-dark text-white">
+<h3>🛍 Our Services</h3>
+</div>
+
+<div class="card-body">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<ul class="list-group">
+
+<li class="list-group-item">💻 Laptops & Computers</li>
+<li class="list-group-item">📱 Smartphones & Tablets</li>
+<li class="list-group-item">🖥️ Monitors</li>
+<li class="list-group-item">🖨 Printers & Scanners</li>
+<li class="list-group-item">🎧 Audio Devices</li>
+
+</ul>
+
+</div>
+
+<div class="col-md-6">
+
+<ul class="list-group">
+
+<li class="list-group-item">⌨️ Computer Accessories</li>
+<li class="list-group-item">💾 Storage Devices</li>
+<li class="list-group-item">🌐 Networking Products</li>
+<li class="list-group-item">⚡ Power Backup</li>
+<li class="list-group-item">🛠 Computer Parts</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row text-center mb-4">
+
+<div class="col-md-3">
+
+<div class="card shadow border-primary">
+<div class="card-body">
+<h2 class="text-primary">50+</h2>
+<p>Products</p>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow border-success">
+<div class="card-body">
+<h2 class="text-success">10+</h2>
+<p>Categories</p>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow border-warning">
+<div class="card-body">
+<h2 class="text-warning">100%</h2>
+<p>Quality</p>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow border-danger">
+<div class="card-body">
+<h2 class="text-danger">24×7</h2>
+<p>Support</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Technologies -->
+
+<div class="card shadow mb-4">
+
+<div class="card-header bg-info text-white">
+<h3>💻 Technologies Used</h3>
+</div>
+
+<div class="card-body">
+
+<div class="row text-center">
+
+<div class="col-md-3">
+<h5>🐍 Python</h5>
+</div>
+
+<div class="col-md-3">
+<h5>🌶 Flask</h5>
+</div>
+
+<div class="col-md-3">
+<h5>🗄 SQLite</h5>
+</div>
+
+<div class="col-md-3">
+<h5>🎨 Bootstrap 5</h5>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Why Choose Us -->
+
+<div class="card shadow mb-4">
+
+<div class="card-header bg-warning">
+<h3>⭐ Why Choose SmartTech Store?</h3>
+</div>
+
+<div class="card-body">
+
+<ul>
+<li>✔ Premium Quality Products</li>
+<li>✔ Affordable Prices</li>
+<li>✔ Fast Inventory Management</li>
+<li>✔ User Friendly Interface</li>
+<li>✔ Secure Database</li>
+<li>✔ Easy Product Search & Filter</li>
+<li>✔ Responsive Bootstrap Design</li>
+</ul>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+
+<div class="card bg-dark text-white shadow">
+
+<div class="card-body text-center">
+
+<h4>🏪 SmartTech Store</h4>
+
+<p class="mb-1">
+Your One-Stop Shop for Electronics & Accessories
+</p>
+
+<p>
+Built with  using Python Flask & Bootstrap
+</p>
+
+<a href="{{ url_for('home') }}" class="btn btn-warning">
+🏠 Back to Home
+</a>
+
+</div>
+
 </div>
 
 {% endblock %}
