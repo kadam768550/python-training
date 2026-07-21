@@ -96,11 +96,15 @@
                     <tr>
                         <td>{{ loop.index }}</td>
 
-                        <td>{{ product.name }}</td>
+                        <td>
+                            <strong>{{ product.name }}</strong>
+                        </td>
 
                         <td>{{ product.category }}</td>
 
-                        <td>₹{{ product.price }}</td>
+                        <td class="text-primary fw-bold">
+                            ₹{{ product.price }}
+                        </td>
 
                         <td>
                             {% if product.stock > 10 %}
@@ -115,7 +119,7 @@
                         <td>
                             <a href="{{ url_for('product_detail', id=product.id) }}"
                                class="btn btn-info btn-sm">
-                                View
+                                👁️View
                             </a>
                         </td>
                     </tr>

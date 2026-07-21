@@ -1,6 +1,6 @@
 from mimetypes import init
 
-from flask import Flask, abort, render_template, request, redirect, url_for, flash
+from flask import Flask, abort, redirect, render_template, request, flash, url_for
 
 from database import get_db, init_db # Importing the database connection function
 
@@ -131,7 +131,7 @@ def add_product():
         # Flash message to user
         flash("Product added successfully!", "success")
         print("Updated Products List:", products)  # Debugging line to check the updated products list
-        return render_template("products.html", products=products)
+        return redirect(url_for("product"))
 
     return render_template("add_product.html")
 
