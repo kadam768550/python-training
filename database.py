@@ -23,9 +23,19 @@ def init_db():
                     stock INTEGER NOT NULL
                  )
                     ''')
+    
+    conn.execute('''
+                 CREATE TABLE IF NOT EXISTS users (
+                 
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT NOT NULL UNIQUE,
+                    password TEXT NOT NULL
+                 )
+                    ''')    
+    
     conn.commit()
     conn.close()
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
      init_db() # Initialize the database
      app.run(debug=True)

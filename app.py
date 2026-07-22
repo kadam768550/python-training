@@ -1,8 +1,7 @@
 from mimetypes import init
-
 from flask import Flask, abort, redirect, render_template, request, flash, url_for
-
 from database import get_db, init_db # Importing the database connection function
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'My Secret Key' #Needed for flashing messages
@@ -54,12 +53,6 @@ def home():
 @app.route("/login")
 def login():
     return render_template("login.html")
-
-
-@app.route("/register")
-def register():
-    return render_template("register.html")
-
 
 @app.route("/orders")
 def orders():
@@ -239,6 +232,30 @@ def filter_products():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username'].strip()
+        password = request.form['password']
+        
+        conn = get_db()
+        # Check if username already exists
+        existing = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+        if existing:
+            flash('Username already exists!', 'danger')
+            conn.close()
+            return render_template('register.html')
+        
+        hashed = generate_password_hash(password)
+        conn.execute('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', (username, hashed, 'product'))
+        conn.commit()
+        conn.close()
+        flash('Registration successful! Please login.', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template("register.html")
+
 
 @app.errorhandler(404)
 def page_not_found(e):
