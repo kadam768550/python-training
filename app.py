@@ -1,5 +1,5 @@
 from mimetypes import init
-from flask import Flask, abort, redirect, render_template, request, flash, url_for
+from flask import Flask, abort, redirect, render_template, request, flash, session, url_for
 from database import get_db, init_db # Importing the database connection function
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -49,10 +49,6 @@ def home():
     #Stats using count
     total = conn.execute('SELECT COUNT(*) FROM products').fetchone()[0]
     return render_template("home.html", products=products, total=total)
-
-@app.route("/login")
-def login():
-    return render_template("login.html")
 
 @app.route("/orders")
 def orders():
@@ -248,13 +244,38 @@ def register():
             return render_template('register.html')
         
         hashed = generate_password_hash(password)
-        conn.execute('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', (username, hashed, 'product'))
+        conn.execute('INSERT INTO users (username, password ) VALUES (?, ? )', (username, hashed ))
         conn.commit()
         conn.close()
         flash('Registration successful! Please login.', 'success')
         return redirect(url_for('login'))
     
     return render_template("register.html")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username'].strip()
+        password = request.form['password']
+        
+        conn = get_db()
+        user = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+        conn.close()
+        
+        if user and check_password_hash(user['password'], password):
+            session['username'] = username
+            flash(f'Welcome {username}!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid username or password', 'danger')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    
+    session.pop('username', None)
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('home'))
 
 
 @app.errorhandler(404)

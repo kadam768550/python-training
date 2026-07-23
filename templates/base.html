@@ -53,75 +53,86 @@
 </head>
 <body class="bg-light">
 
-<!-- Navbar -->
-<nav class="navbar navbar-dark bg-primary shadow">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="/">
-            🏪 SmartTech Store
-        </a>
+<!-- Professional Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm"
+         style="background-color: #1e3a5f;">
+        <div class="container">
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarMenu"
-                aria-controls="navbarMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+            <!-- Brand / Logo -->
+            <a class="navbar-brand fw-bold fs-5 me-3" href="{{ url_for('home') }}">
+                 🏪 SmartTech Store
+            </a>
+            <!-- Hamburger menu for mobile -->
+            <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    </div>
-</nav>
 
-<!-- Menu -->
-<div class="collapse bg-white shadow" id="navbarMenu">
-    <div class="container py-3">
-        <a href="/" class="d-block text-decoration-none text-dark py-2">
-            🏠 Home
-        </a>
+<!-- Nav links — always visible, centered -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('home') }}">
+                            🏠 Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('product') }}">
+                            📦 Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('orders') }}">
+                            🛒 Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('about') }}">
+                            ℹ️ About
+                        </a>
+                    </li>
+                    {% if session.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('add_product') }}">
+                            ➕ Add Product
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class ="nav-link px-2 py-1" href="{{ url_for('filter_products') }}">
+                        🔍 Filter
+                    </a>
+                </li>
+                <li class="nav-item">
+                <form class="d-flex ms-3 mt-3" action="{{ url_for('search') }}" method="GET">
+                    <input class="form-control form-control-sm me-2" style="width:130px; height:35px" type="search" placeholder="Search" name="q">
+                    <button class="btn btn-outline-light btn-sm" style="width:100px; height:35px" type="submit">Search</button>
+                </form>
+                </li>
+                {% if session.username %}
+                <li class="nav-item">
+                    <span class="nav-link px-2 py-1 text-white">👤 {{ session.username }}</span>
+                    <a class="nav-link px-2 py-1" href="{{ url_for('logout') }}">
+                        🔓 Logout
+                    </a>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('login') }}">
+                            🔒 Login
+                        </a>
+                    </li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <hr>
-        <a href="/products" class="d-block text-decoration-none text-dark py-2">
-            📦 Products
-        </a>
-
-        <hr>
-        <a href="/orders" class="d-block text-decoration-none text-dark py-2">
-            🛒 Orders
-        </a>
-
-        <hr>
-        <a href="/login" class="d-block text-decoration-none text-dark py-2">
-            🔑 Login
-        </a>
-
-        <hr>
-        <a href="/register" class="d-block text-decoration-none text-dark py-2">
-            👤 Register
-        </a>
-
-        <hr>
-        <a href="/about" class="d-block text-decoration-none text-dark py-2">
-            ℹ️ About
-        </a>
-
-        <hr>
-        <a href="/add_product" class="d-block text-decoration-none text-dark py-2">
-            ➕ Add Product
-        </a>
-
-        <hr>
-        <a href="/filter" class="d-block text-decoration-none text-dark py-2">
-            🔍 Filter
-        </a>
-
-        <form class="d-flex ms-3 mt-3" action="{{ url_for('search') }}" method="GET">
-            <input class="form-control form-control-sm me-2" style="width:130px;
-            height:35px" type="search" placeholder="Search" name="q">
-            <button class="btn btn-outline-light btn-sm" style="width:100px; height:35px" 
-            type="submit">Search</button>
-        </form>
-    </div>
-</div>
 
 <div class="container mt-4 mb-5">
     {% with messages = get_flashed_messages(with_categories=true) %}
