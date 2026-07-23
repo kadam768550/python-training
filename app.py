@@ -50,11 +50,6 @@ def home():
     total = conn.execute('SELECT COUNT(*) FROM products').fetchone()[0]
     return render_template("home.html", products=products, total=total)
 
-@app.route("/orders")
-def orders():
-    return render_template("orders.html")
-
-
 @app.route("/products")
 def product():
     conn = get_db()
@@ -65,6 +60,9 @@ def product():
 #DELETE - remove by ID
 @app.route('/delete/<int:id>')
 def delete_product(id):
+    if  'username' not in session:
+        flash("Please Login first", "warning")
+        return redirect(url_for('login'))
     conn = get_db()
 
     # First Check if it exists
@@ -96,6 +94,9 @@ def product_detail(id):
 
 @app.route("/add_product", methods=["GET", "POST"])
 def add_product():
+    if  'username' not in session:
+        flash("Please Login first", "warning")
+        return redirect(url_for('login'))
     if request.method == "POST":
         new_product = {
             "id": len(products) + 1,
@@ -127,6 +128,9 @@ def add_product():
     #EDIT - update by ID
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_product(id):
+    if  'username' not in session:
+            flash("Please Login first", "warning")
+            return redirect(url_for('login'))
     conn = get_db()
 
     if request.method == 'POST':
