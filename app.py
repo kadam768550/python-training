@@ -282,6 +282,21 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
+@app.route('/categories')
+def categories():
+    conn = get_db()
+
+    rows = conn.execute('''
+        SELECT categories.name AS category_name, COUNT(products.id) AS product_count
+        FROM categories
+        LEFT JOIN products ON products.category = categories.name
+        GROUP BY categories.name
+        ORDER BY categories.name
+    ''').fetchall()
+
+    conn.close()
+    return render_template('categories.html', rows=rows)
+       
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404

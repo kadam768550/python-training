@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Categories - SmartTech Store{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold mb-4">Product Categories</h2>
+
+<div class="row">
+{% for row in rows %}
+<div class="col-md-3 mb-3">
+    <div class="card shadow-sm text-center p-3">
+        <h2 class="fw-bold" style="color:#1e3a5f;">
+            {{ row['product_count'] }}
+        </h2>
+        <p class="mb-0">{{ row['category_name'] }}</p>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

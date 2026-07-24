@@ -1,47 +1,81 @@
 import sqlite3
 from flask import Flask, render_template, request, flash
-app = Flask(__name__)
-app.secret_key = 'my secret key'
 
-# 2 functions
+app = Flask(__name__)
+app.secret_key = "my secret key"
+
+
 def get_db():
     """Database connection"""
-    conn = sqlite3.connect('myproject.db')
-    conn.row_factory = sqlite3.Row # To access columns by name
+    conn = sqlite3.connect("myproject.db")
+    conn.row_factory = sqlite3.Row
     return conn
 
+
 def init_db():
-    """Create table"""
+    """Create tables"""
     conn = get_db()
-    # Create products table if it doesn't exist
-    conn.execute('''
-                 CREATE TABLE IF NOT EXISTS products (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    category TEXT NOT NULL,
-                    price REAL NOT NULL,
-                    stock INTEGER NOT NULL
-                 )
-                    ''')
-    
-    conn.execute('''
-                 CREATE TABLE IF NOT EXISTS users (
-                 
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    username TEXT NOT NULL UNIQUE,
-                    password TEXT NOT NULL
-                 )
-                    ''')    
-    
+
+    # Products table
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS products (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            price REAL NOT NULL,
+            stock INTEGER NOT NULL
+        )
+    """)
+
+    # Users table
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL
+        )
+    """)
+
+    # Add role column if it doesn't exist
     try:
-       conn.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'product'")
-    except Exception:
-        # Column already exists
+        conn.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'product'")
+    except sqlite3.OperationalError:
         pass
-    
+
+    # Categories table
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS categories (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE
+        )
+    """)
+
+    # Default categories
+    default_categories = [
+        "Laptops",
+        "Mobiles",
+        "Accessories",
+        "Monitors",
+        "Printers",
+        "Storage",
+        "Networking",
+        "Electronics"
+    ]
+
+    for category in default_categories:
+        try:
+            conn.execute(
+                "INSERT INTO categories (name) VALUES (?)",
+                (category,)
+            )
+        except sqlite3.IntegrityError:
+                # Subject already exists, ignore the error
+            pass
+
     conn.commit()
     conn.close()
 
-    if __name__ == "__main__":
-     init_db() # Initialize the database
-     app.run(debug=True)
+
+if __name__ == "__main__":
+    init_db()
+    app.run(debug=True)
