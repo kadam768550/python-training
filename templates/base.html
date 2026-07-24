@@ -91,10 +91,12 @@
                             ℹ️ About
                         </a>
                     </li>
+                    {% if session.role == 'admin' %}
                     <li class="nav-item">
                         <a class="nav-link px-2 py-1" href="{{ url_for('add_product') }}">
                             ➕ Add Product
                         </a>
+                        {% endif %}
                     </li>
                     
                 <li class="nav-item">
@@ -108,7 +110,7 @@
                     <button class="btn btn-outline-light btn-sm" style="width:100px; height:35px" type="submit">Search</button>
                 </form>
                 </li>
-                {% if session.username %}
+                 {% if session.username %}
                 <li class="nav-item">
                     <span class="nav-link px-2 py-1 text-white">👤 {{ session.username }}</span>
                     <a class="nav-link px-2 py-1" href="{{ url_for('logout') }}">

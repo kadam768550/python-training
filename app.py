@@ -60,9 +60,9 @@ def product():
 #DELETE - remove by ID
 @app.route('/delete/<int:id>')
 def delete_product(id):
-    if  'username' not in session:
-        flash("Please Login first", "warning")
-        return redirect(url_for('login'))
+    if session.get('role') != 'admin':
+        flash("Admins only!  You do not have permission", "danger")
+        return redirect(url_for('home'))
     conn = get_db()
 
     # First Check if it exists
@@ -94,9 +94,9 @@ def product_detail(id):
 
 @app.route("/add_product", methods=["GET", "POST"])
 def add_product():
-    if  'username' not in session:
-        flash("Please Login first", "warning")
-        return redirect(url_for('login'))
+    if session.get('role') != 'admin':
+        flash("Admins only!  You do not have permission", "danger")
+        return redirect(url_for('home'))
     if request.method == "POST":
         new_product = {
             "id": len(products) + 1,
@@ -128,9 +128,9 @@ def add_product():
     #EDIT - update by ID
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_product(id):
-    if  'username' not in session:
-            flash("Please Login first", "warning")
-            return redirect(url_for('login'))
+    if session.get('role') != 'admin':
+        flash("Admins only!  You do not have permission", "danger")
+        return redirect(url_for('home'))
     conn = get_db()
 
     if request.method == 'POST':
@@ -268,6 +268,7 @@ def login():
         
         if user and check_password_hash(user['password'], password):
             session['username'] = username
+            session['role'] = user['role']
             flash(f'Welcome {username}!', 'success')
             return redirect(url_for('home'))
         else:
@@ -276,16 +277,14 @@ def login():
 
 @app.route('/logout')
 def logout():
-    
     session.pop('username', None)
+    session.pop('role', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
-
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
-
 
 if __name__ == "__main__":
     init_db()  # Initialize the database
