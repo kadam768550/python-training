@@ -248,7 +248,7 @@ def register():
             return render_template('register.html')
         
         hashed = generate_password_hash(password)
-        conn.execute('INSERT INTO users (username, password ) VALUES (?, ? )', (username, hashed ))
+        conn.execute('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', (username, hashed, 'product'))
         conn.commit()
         conn.close()
         flash('Registration successful! Please login.', 'success')

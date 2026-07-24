@@ -33,6 +33,12 @@ def init_db():
                  )
                     ''')    
     
+    try:
+       conn.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'product'")
+    except Exception:
+        # Column already exists
+        pass
+    
     conn.commit()
     conn.close()
 
