@@ -62,7 +62,10 @@ def init_db():
         "Printers",
         "Storage",
         "Networking",
-        "Electronics"
+        "Electronics",
+        "Audio Devices",
+        "Gaming",
+        "Software"
     ]
 
     for category in default_categories:
