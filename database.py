@@ -55,8 +55,8 @@ def init_db():
 
     # Default categories
     default_categories = [
-        "Laptops",
-        "Mobiles",
+        "Laptop",
+        "Mobile",
         "Accessories",
         "Monitors",
         "Printers",
