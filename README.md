@@ -15,10 +15,10 @@ https://gangaprasadkadam.pythonanywhere.com/
 - Responsive design — works on mobile and desktop
 
 ## 🛠️ Tech Stack
-Backend: Python, Flask
-Database: SQLite
-Frontend: HTML, Bootstrap 5, JavaScript
-Deployment: PythonAnywhere
+- **Backend:** Python, Flask
+- **Database:** SQLite
+- **Frontend:** HTML, Bootstrap 5, JavaScript
+- **Deployment:** PythonAnywhere
 
 ## 🚀 How to Run Locally
 '''bash
