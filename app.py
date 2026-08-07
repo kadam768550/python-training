@@ -8,7 +8,8 @@ from groq import Groq
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 
-load_dotenv()  # Load environment variables from .env file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get the directory of the current file
+load_dotenv(os.path.join(BASE_DIR, '.env'))  # Load environment variables from .env file
 
 app = Flask(__name__)
 app.secret_key = 'My Secret Key' #Needed for flashing messages
