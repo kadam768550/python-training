@@ -1,6 +1,10 @@
-from mimetypes import init
+from urllib import response
+
+from click import prompt
 from flask import Flask, abort, redirect, render_template, request, flash, session, url_for
 from database import get_db, init_db # Importing the database connection function
+from groq import Groq
+import os
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -56,6 +60,33 @@ def product():
     products = conn.execute("SELECT * FROM products ORDER BY id DESC").fetchall()
     conn.close()
     return render_template("products.html", products=products)
+
+@app.route("/products/<int:id>/tip")
+def get_ai_tip(id):
+    conn = get_db()
+    product = conn.execute("SELECT * FROM products WHERE id = ?", (id,)).fetchone()
+    conn.close()
+
+    if product is None:
+        abort(404)  # trigger 404.html
+
+        prompt = f"""
+    Product Name: {product['name']}
+    Category: {product['category']}
+    Price: {product['price']}
+    Stock: {product['stock']}
+    please provide a tip for selling this product effectively.It Simple and short in 2-3 lines.
+    """
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    tip = response.choices[0].message.content
+    return render_template("detail.html", product=product, tip=tip)
+        
 
 #DELETE - remove by ID
 @app.route('/delete/<int:id>')

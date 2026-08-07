@@ -9,7 +9,7 @@
         <!--Detail card-->
         <div class="card shadow-sm">
             <div class="card-header text-white py-3" style="background-color:#5f3f1e;">
-                <h4 class="mb-0">Product Detail</h4>
+                <h4 class="mb-0">🛒 Product Detail</h4>
             </div>
             <div class="card-body">
                 <!--Avatar-->
@@ -39,6 +39,16 @@
                         <td>{{ product.stock }}</td>
                     </tr>
                 </table>
+
+                <!-- AI Tips section-->
+                 <div class="mb-3">
+                    <h5 class="fw-bold">💡 Selling Tip:</h5>
+                    {% if tip %}
+                    <div class ="alert alert-info">{{ tip }}</div>>
+                    {% else %}
+                    <a href="{{url_for('get_ai_tip', id=product.id)}}" class="btn btn-outline-primary">Get AI Tip</a>
+                    {% endif %}
+                </div>
 
                 <a href="{{ url_for('product') }}" class="btn btn-outline-danger">
                     Back
