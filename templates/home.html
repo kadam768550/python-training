@@ -4,39 +4,45 @@
 
 {% block content %}
 
-<!-- Hero Section -->
-<div class="p-5 mb-5 rounded-4 text-white shadow"
-     style="background: linear-gradient(135deg,#0d6efd,#6610f2);">
+<!-- Hero Section — professional banner -->
+<div class="hero-section p-5 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-5 fw-bold mb-2">
+                🛒 Welcome To SmartTech Store
+            </h1>
+            <p class="fs-5 opacity-75 mb-3">
+                <p class="lead">
+                # Your One-Stop Shop for Electronics & Accessories
+                </p>
 
-    <h1 class="display-5 fw-bold">
-        🛒 Welcome To SmartTech Store
-    </h1>
+                <p class="lead">
+                # Everything Tech, All in One Place
+                </p>
 
-    <p class="lead">
-        # Your One-Stop Shop for Electronics & Accessories
-    </p>
+                <p class="lead">
+                # Smart Solutions for Smart People
+                </p>
 
-    <p class="lead">
-        # Everything Tech, All in One Place
-    </p>
-
-    <p class="lead">
-        # Smart Solutions for Smart People
-    </p>
-
-    <a href="{{ url_for('product') }}" class="btn btn-primary btn-lg me-2">
-        📋 View Products →
-    </a>
-
-    <a href="{{ url_for('about') }}" class="btn btn-secondary btn-lg">
-        About
-    </a>
-
+            </p>
+            <a href="{{ url_for('product') }}"
+               class="btn btn-light btn-lg px-4 me-2">
+                View Products →
+            </a>
+            <a href="{{ url_for('about') }}"
+               class="btn btn-outline-light btn-lg px-4">
+                About
+            </a>
+        </div>
+        <div class="col-12 col-md-4 text-center d-none d-md-block">
+            <span style="font-size: 120px;">📱</span>
+        </div>
+    </div>
 </div>
 
 <!-- Dashboard Cards -->
 <div class="row g-4 mb-5">
-    <div class="col-md-4">
+    <div class="col-12 col-md-4 mb-3">
         <div class="card border-0 shadow text-center h-100">
             <div class="card-body">
                 <h1>📦</h1>
@@ -46,7 +52,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-12 col-md-4 mb-3">
         <div class="card border-0 shadow text-center h-100">
             <div class="card-body">
                 <h1>📂</h1>
@@ -58,7 +64,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-12 col-md-4 mb-3">
         <div class="card border-0 shadow text-center h-100">
             <div class="card-body">
                 <h1>✅</h1>
