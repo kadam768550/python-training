@@ -44,7 +44,7 @@
                  <div class="mb-3">
                     <h5 class="fw-bold">💡 Selling Tip:</h5>
                     {% if tip %}
-                    <div class ="alert alert-info">{{ tip }}</div>>
+                    <div class ="alert alert-info">{{ tip }}</div>
                     {% else %}
                     <a href="{{url_for('get_ai_tip', id=product.id)}}" class="btn btn-outline-primary">Get AI Tip</a>
                     {% endif %}
