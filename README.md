@@ -21,7 +21,6 @@ https://gangaprasadkadam.pythonanywhere.com/
 - **Deployment:** PythonAnywhere
 
 ## 🚀 How to Run Locally
-'''bash
 git clone https://github.com/kadam768550/python-training.git
 cd python-training
 pip install -r requirements.txt
