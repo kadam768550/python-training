@@ -40,16 +40,27 @@ def init_db():
     """)
 
     try:
-        conn.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'product'")
+        conn.execute(
+            "ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'product'"
+        )
     except Exception:
-        # Column already exists
         pass
 
     try:
-        conn.execute("ALTER TABLE products ADD COLUMN photo TEXT DEFAULT 'default.jpg'")
+        conn.execute(
+            "ALTER TABLE products ADD COLUMN photo TEXT DEFAULT 'default.png'"
+        )
     except Exception:
-        # Column already exists
         pass
+
+    # Fix old image names
+    conn.execute("""
+        UPDATE products
+        SET photo = 'default.png'
+        WHERE photo IS NULL
+           OR photo = ''
+           OR photo = 'default.jpg'
+    """)
 
     # Categories table
     conn.execute("""
@@ -59,7 +70,6 @@ def init_db():
         )
     """)
 
-    # Default categories
     default_categories = [
         "Laptop",
         "Mobile",
@@ -81,7 +91,6 @@ def init_db():
                 (category,)
             )
         except sqlite3.IntegrityError:
-                # Subject already exists, ignore the error
             pass
 
     conn.commit()
