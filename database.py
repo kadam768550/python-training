@@ -39,10 +39,16 @@ def init_db():
         )
     """)
 
-    # Add role column if it doesn't exist
     try:
         conn.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'product'")
-    except sqlite3.OperationalError:
+    except Exception:
+        # Column already exists
+        pass
+
+    try:
+        conn.execute("ALTER TABLE products ADD COLUMN photo TEXT DEFAULT 'default.jpg'")
+    except Exception:
+        # Column already exists
         pass
 
     # Categories table

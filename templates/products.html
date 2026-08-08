@@ -49,20 +49,22 @@
                 <tbody id="tableBody">
 
                 {% for product in products %}
-
                 <tr class="align-middle" data-name="{{ product.name|lower }}">
-
                     <td class="text-center fw-bold">
                         {{ loop.index }}
                     </td>
 
                     <td>
-                        <strong>{{ product.name }}</strong>
+                        <div class="d-flex align-items-center">
+                            <img src="{{ url_for('static', filename='uploads/' ~ product.photo) }}"
+                                 class="rounded-circle me-2"
+                                 style="width:40px; height:40px; object-fit:cover;"
+                                 alt="{{ product.name }}">
+                            <span class="fw-bold">{{ product.name }}</span>
+                        </div>
                     </td>
 
-                    <td>
-                        {{ product.category }}
-                    </td>
+                    <td class="text-muted">{{ product.category }}</td>
 
                     <td class="text-success fw-bold">
                         ₹{{ product.price }}

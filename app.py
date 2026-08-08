@@ -7,12 +7,24 @@ from database import get_db, init_db # Importing the database connection functio
 from groq import Groq
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+from werkzeug.utils import secure_filename
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get the directory of the current file
 load_dotenv(os.path.join(BASE_DIR, '.env'))  # Load environment variables from .env file
 
 app = Flask(__name__)
 app.secret_key = 'My Secret Key' #Needed for flashing messages
+
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')  # Define the upload folder path
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Create the upload folder if it doesn't exist
+
+def allowed_file(filename):
+    #only allow certain file extensions
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 products = [
     {
@@ -139,6 +151,7 @@ def add_product():
     if session.get('role') != 'admin':
         flash("Admins only!  You do not have permission", "danger")
         return redirect(url_for('home'))
+    
     if request.method == "POST":
         new_product = {
             "id": len(products) + 1,
@@ -151,11 +164,18 @@ def add_product():
         if not new_product["name"] or not new_product["category"] or new_product["price"] <= 0 or new_product["stock"] < 0:
             flash("Please fill in all fields correctly.", "error")
             return render_template("add_product.html")
+
+        #ADD: handle photo upload
+        file = request.files.get('photo')
+        filename = 'default.png'  # Default photo
+        if file and file.filename and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
         conn = get_db()
         conn.execute(''' INSERT INTO products 
-                    (name, category, price, stock) VALUES (?, ?, ?, ?)''', 
-                    (new_product["name"], new_product["category"], new_product["price"], new_product["stock"]))
+                    (name, category, price, stock, photo) VALUES (?, ?, ?, ?, ?)''', 
+                    (new_product["name"], new_product["category"], new_product["price"], new_product["stock"], filename))
        
         conn.commit()
         conn.close()
