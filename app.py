@@ -72,10 +72,15 @@ def home():
 
 @app.route("/products")
 def product():
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
     conn = get_db()
-    products = conn.execute("SELECT * FROM products ORDER BY id DESC").fetchall()
+    products = conn.execute('SELECT * FROM products ORDER BY id DESC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
+    total = conn.execute('SELECT COUNT(*) FROM products').fetchone()[0]
     conn.close()
-    return render_template("products.html", products=products)
+    total_pages = (total + per_page - 1) // per_page  # Calculate total pages
+    return render_template("products.html", products=products, page=page, total_pages=total_pages)
 
 @app.route("/products/<int:id>/tip")
 def get_ai_tip(id):
