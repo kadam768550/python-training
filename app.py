@@ -205,12 +205,19 @@ def edit_product(id):
             flash('Name cannot be empty','danger')
             return redirect(url_for('edit_product',id=id))
 
+        #ADD: handle photo upload
+        file = request.files.get('photo')
+        filename = 'default.png'  # Default photo
+        if file and file.filename and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
         # UPDATE record
         conn.execute("""
             UPDATE products
-            SET name = ?, category = ?, price = ?, stock = ?
+            SET name = ?, category = ?, price = ?, stock = ?, photo = ?
             WHERE id = ?
-        """, (name, category, price, stock, id))
+        """, (name, category, price, stock, filename, id))
 
         conn.commit()
         conn.close()
