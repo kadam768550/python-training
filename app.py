@@ -73,7 +73,7 @@ def home():
 @app.route("/products")
 def product():
     page = request.args.get('page', 1, type=int)
-    per_page = 8
+    per_page = 10
     offset = (page - 1) * per_page
     conn = get_db()
     products = conn.execute('SELECT * FROM products ORDER BY id DESC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
