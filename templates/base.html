@@ -5,163 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}SmartTech Store {% endblock %}</title>
 
-    <!-- Bootstrap CSS -->
+    <!--Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
-    <!-- Custom brand color — ek line se poori site ka color change -->
     <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            background-color: #6f42c1 !important;
+        }
+
+        body {
+            background-color: #6f42c1 !important;
+        }
+
+        .page-background {
+            min-height: 100vh;
+            background-color: #6f42c1 !important;
+        }
+
         .navbar {
             min-height: 60px;
         }
+
         :root {
-            --brand: #1e3a5f;
+            --brand: #6f42c1;
         }
-        .navbar-brand-custom { background-color: var(--brand); }
+
+        .navbar-brand-custom {
+            background-color: var(--brand);
+        }
+
         .btn-brand {
             background-color: var(--brand);
             color: white;
             border: none;
         }
-        .btn-brand:hover { background-color: #162d4a; color: white; }
+
+        .btn-brand:hover {
+            background-color: #56339b;
+            color: white;
+        }
+
         .hero-section {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 100%);
+            background: linear-gradient(135deg, #6f42c1 0%, #8f6bd1 100%);
             color: white;
             border-radius: 12px;
         }
+
         .nav-link {
             font-size: 0.95rem;
             font-weight: 500;
         }
+
         .stat-card {
             border: none;
             border-radius: 12px;
             transition: transform 0.2s;
         }
-        .stat-card:hover { transform: translateY(-3px); }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
         .student-card {
             border: none;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .student-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
+
+        .table thead th {
+            background-color: #6f42c1;
+            color: white;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+        }
+
+        footer {
+            background-color: #56339b !important;
+        }
     </style>
 </head>
-<body class="bg-light">
+<body>
+<div class="page-background">
 
-<!-- Professional Navbar -->
+    <!--Professional Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm"
-         style="background-color: #1e3a5f;">
+         style="background-color: #56339b;">
         <div class="container">
 
-            <!-- Brand / Logo -->
+            <!--Brand Logo-->
             <a class="navbar-brand fw-bold fs-5 me-3" href="{{ url_for('home') }}">
                 SmartTech Store 🛒
             </a>
-            
-            <!-- Hamburger menu for mobile -->
-            <button class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
-            aria-controls="mainNavbar"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-<!-- Nav links — always visible, centered -->
+            <!--Hamburger Menu for Mobile-->
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--Nav links-->
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav me-auto align-items-lg-center">
+
                     <li class="nav-item">
                         <a class="nav-link px-2 py-1" href="{{ url_for('home') }}">
                             🏠 Home
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link px-2 py-1" href="{{ url_for('product') }}">
                             📦 Products
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link px-2 py-1" href="{{ url_for('categories') }}">
                             📦 Categories
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link px-2 py-1" href="{{ url_for('about') }}">
                             ℹ️ About
                         </a>
                     </li>
+
                     {% if session.role == 'admin' %}
                     <li class="nav-item">
                         <a class="nav-link px-2 py-1" href="{{ url_for('add_product') }}">
                             ➕ Add Product
                         </a>
-                        {% endif %}
                     </li>
-                    
-                <li class="nav-item">
-                    <a class ="nav-link px-2 py-1" href="{{ url_for('filter_products') }}">
-                        🔍 Filter
-                    </a>
-                </li>
-                <li class="nav-item">
-                <form class="d-flex ms-3 mt-3" action="{{ url_for('search') }}" method="GET">
-                    <input class="form-control form-control-sm me-2" style="width:130px; height:35px" type="search" placeholder="Search" name="q">
-                    <button class="btn btn-outline-light btn-sm" style="width:100px; height:35px" type="submit">Search</button>
-                </form>
-                </li>
-                 {% if session.username %}
-                <li class="nav-item">
-                    <span class="nav-link px-2 py-1 text-white">👤 {{ session.username }}</span>
-                    <a class="nav-link px-2 py-1" href="{{ url_for('logout') }}">
-                        🔓 Logout
-                    </a>
-                </li>
-                {% else %}
+                    {% endif %}
+
                     <li class="nav-item">
-                        <a class="nav-link px-2 py-1" href="{{ url_for('login') }}">
+                        <a class="nav-link px-2 py-1" href="{{ url_for('filter_products') }}">
+                            🔍 Filter
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <form class="d-flex ms-3 mt-3"
+                              action="{{ url_for('search') }}"
+                              method="GET">
+
+                            <input class="form-control form-control-sm me-2"
+                                   style="width:130px; height:35px"
+                                   type="search"
+                                   placeholder="Search"
+                                   name="q">
+
+                            <button class="btn btn-outline-light btn-sm"
+                                    style="width:100px; height:35px"
+                                    type="submit">
+                                Search
+                            </button>
+                        </form>
+                    </li>
+
+                    {% if session.username %}
+
+                    <li class="nav-item">
+                        <span class="nav-link px-2 py-1 text-white">
+                            👤 {{ session.username }}
+                        </span>
+
+                        <a class="nav-link px-2 py-1"
+                           href="{{ url_for('logout') }}">
+                            🔓 Logout
+                        </a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1"
+                           href="{{ url_for('login') }}">
                             🔒 Login
                         </a>
                     </li>
-                {% endif %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 
+    <div class="container mt-4 mb-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show"
+                     role="alert">
+                    {{ message }}
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close">
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
 
-<div class="container mt-4 mb-5">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
+        <!--Main Content-->
+        {% block content %}
+        {% endblock %}
+    </div>
 
-<!-- Main Content -->
-   {% block content %}
-    {% endblock %}
+    <!-- Footer -->
+    <footer class="text-white text-center py-3 mt-5">
+        <p class="mb-0">
+            © 2026 SmartTech Store | Flask + Bootstrap
+        </p>
+    </footer>
 </div>
 
-<!-- Footer -->
-<footer class="bg-primary text-white text-center py-3 mt-5">
-    <p class="mb-0">
-        © 2026 Shop Inventory System | Flask + Bootstrap
-    </p>
-</footer>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--Bootstrap JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 </body>
 </html>
