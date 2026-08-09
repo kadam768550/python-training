@@ -176,32 +176,16 @@
                                 </span>
                             </td>
 
-                            <td class="text-success fw-bold">
-                                ₹{{ product.price }}
+                            <td>
+                                <span class="badge bg-success">
+                                    {{ product.price }}
+                                </span>
                             </td>
 
-                            <td>
-
-                                {% if product.stock > 20 %}
-
+                            <td >
                                 <span class="badge bg-success">
                                     {{ product.stock }}
                                 </span>
-
-                                {% elif product.stock > 10 %}
-
-                                <span class="badge bg-warning text-dark">
-                                    {{ product.stock }}
-                                </span>
-
-                                {% else %}
-
-                                <span class="badge bg-danger">
-                                    {{ product.stock }}
-                                </span>
-
-                                {% endif %}
-
                             </td>
 
                             <td>
