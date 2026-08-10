@@ -81,7 +81,8 @@ def init_db():
         "Electronics",
         "Wearable",
         "Office",
-        "Furniture"
+        "Furniture",
+        "Audio"
     ]
 
     for category in default_categories:

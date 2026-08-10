@@ -61,14 +61,16 @@ products = [
 
 @app.route("/")
 def home():
+    page = request.args.get('page', 1, type=int)
+    per_page = 8
+    offset = (page - 1) * per_page
     conn = get_db()
-
     #All products from database
-    products = conn.execute('SELECT * FROM products ORDER BY id DESC').fetchall()
-    
-    #Stats using count
+    products = conn.execute('SELECT * FROM products ORDER BY id DESC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
     total = conn.execute('SELECT COUNT(*) FROM products').fetchone()[0]
-    return render_template("home.html", products=products, total=total)
+    conn.close()
+    total_pages = (total + per_page - 1) // per_page  # Calculate total pages
+    return render_template("home.html", products=products, page=page, total_pages=total_pages)
 
 @app.route("/products")
 def product():
@@ -370,6 +372,13 @@ def categories():
 
     conn.close()
     return render_template('categories.html', rows=rows)
+
+@app.route('/orders')
+def orders():
+    conn = get_db()
+    orders = conn.execute('SELECT * FROM orders ORDER BY id DESC').fetchall()
+    conn.close()
+    return render_template('orders.html', orders=orders)
        
 @app.errorhandler(404)
 def page_not_found(e):
