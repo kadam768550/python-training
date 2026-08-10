@@ -373,13 +373,55 @@ def categories():
     conn.close()
     return render_template('categories.html', rows=rows)
 
-@app.route('/orders')
-def orders():
+@app.route('/order', methods=['GET', 'POST'])
+def order():
     conn = get_db()
-    orders = conn.execute('SELECT * FROM orders ORDER BY id DESC').fetchall()
+
+    products = conn.execute(
+        'SELECT * FROM products ORDER BY id DESC'
+    ).fetchall()
+
+    if request.method == 'POST':
+        product_id = request.form.get('product')
+        quantity = int(request.form.get('quantity', 1))
+
+        product = conn.execute(
+            'SELECT * FROM products WHERE id = ?',
+            (product_id,)
+        ).fetchone()
+
+        conn.close()
+
+        if not product:
+            return render_template(
+                'order.html',
+                products=products,
+                message="Please select a valid product."
+            )
+
+        total = product['price'] * quantity
+
+        order_details = {
+            'product_name': product['name'],
+            'price': product['price'],
+            'quantity': quantity,
+            'total': total,
+            'customer_name': request.form.get('customer_name'),
+            'customer_phone': request.form.get('customer_phone'),
+            'address': request.form.get('address')
+        }
+
+        return render_template(
+            'order.html',
+            products=products,
+            message="Order placed successfully!",
+            order_details=order_details
+        )
+
     conn.close()
-    return render_template('orders.html', orders=orders)
-       
+    return render_template('order.html', products=products)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
