@@ -159,11 +159,11 @@
 
                     </thead>
 
-                    <tbody>
+                    <tbody id="productTableBody">
 
                         {% for product in products %}
 
-                        <tr>
+                        <tr class="product-row">
 
                             <td>{{ loop.index }}</td>
 
@@ -183,7 +183,7 @@
                                 </span>
                             </td>
 
-                            <td >
+                            <td>
                                 <span class="badge bg-success">
                                     {{ product.stock }}
                                 </span>
@@ -225,6 +225,16 @@
 
             </div>
 
+            <!-- Pagination -->
+
+            <div class="d-flex justify-content-center mt-4">
+
+                <nav>
+                    <ul class="pagination" id="pagination"></ul>
+                </nav>
+
+            </div>
+
             {% else %}
 
             <div class="text-center py-5">
@@ -259,5 +269,161 @@
     </div>
 
 </div>
+
+
+<!-- Pagination JavaScript -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const rows = document.querySelectorAll(".product-row");
+    const pagination = document.getElementById("pagination");
+
+    const rowsPerPage = 8;
+    let currentPage = 1;
+
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+
+    function showPage(page) {
+
+        currentPage = page;
+
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        rows.forEach((row, index) => {
+
+            if (index >= start && index < end) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+
+        });
+
+        createPagination();
+
+    }
+
+
+    function createPagination() {
+
+        pagination.innerHTML = "";
+
+        if (totalPages <= 1) {
+            return;
+        }
+
+
+        // Previous Button
+
+        const previousLi = document.createElement("li");
+
+        previousLi.className =
+            "page-item " + (currentPage === 1 ? "disabled" : "");
+
+        previousLi.innerHTML = `
+            <a class="page-link" href="#">
+                Previous
+            </a>
+        `;
+
+        previousLi.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+
+        });
+
+        pagination.appendChild(previousLi);
+
+
+        // Page Numbers
+
+        for (let i = 1; i <= totalPages; i++) {
+
+            const pageLi = document.createElement("li");
+
+            pageLi.className =
+                "page-item " + (i === currentPage ? "active" : "");
+
+            pageLi.innerHTML = `
+                <a class="page-link" href="#">
+                    ${i}
+                </a>
+            `;
+
+            pageLi.addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                showPage(i);
+
+            });
+
+            pagination.appendChild(pageLi);
+
+        }
+
+
+        // Next Button
+
+        const nextLi = document.createElement("li");
+
+        nextLi.className =
+            "page-item " +
+            (currentPage === totalPages ? "disabled" : "");
+
+        nextLi.innerHTML = `
+            <a class="page-link" href="#">
+                Next
+            </a>
+        `;
+
+        nextLi.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+
+        });
+
+        pagination.appendChild(nextLi);
+
+    }
+
+
+    showPage(1);
+
+});
+
+</script>
+
+<style>
+    .pagination .page-link {
+        color: #ff5722;
+        background-color: #fff3e0;
+        border-color: #ff5722;
+    }
+
+    .pagination .page-link:hover {
+        color: white;
+        background-color: #ff5722;
+        border-color: #ff5722;
+    }
+
+    .pagination .page-item.active .page-link {
+        color: white;
+        background-color: #ff5722;
+        border-color: #ff5722;
+    }
+</style>
 
 {% endblock %}
