@@ -1,20 +1,100 @@
 {% extends 'base.html' %}
+{% block title %}Account{% endblock %}
+
 {% block content %}
-<div class ="row justify-content-center px-2">
-    <div class="col-12 col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <h4 class="fw-bold mb-3">Login</h4>
-                <form method="POST" action="{{url_for('login')}}">
-                    <input type="text" name="username" class="form-control mb-2" placeholder="Username"> 
-                    <input type="password" name="password" class="form-control mb-2" placeholder="Password">
-                    <button type="submit" class="btn btn-dark">Login</button>
-                </form>
-                <p class="text-center mt-3 mb-0">
-                    No account? <a href="{{ url_for('register') }}">Register here</a>
-                </p>
-            </div>
+
+<style>
+body{background:#5b2a86!important}
+.box{
+ max-width:460px;margin:50px auto;background:#6f35a0;
+ border:2px solid #9b6ac0;border-radius:18px;
+ padding:25px;box-shadow:0 10px 30px #32104d
+}
+h3,h4,label,p{color:white}
+.form-control{
+ background:#7d49aa!important;color:white!important;
+ border:2px solid #a77acb!important;border-radius:10px
+}
+.form-control::placeholder{color:#eee}
+.btn-v{
+ width:100%;padding:11px;border:0;border-radius:10px;
+ background:linear-gradient(90deg,#4b2070,#8e44ad);
+ color:white;font-weight:bold
+}
+.link{color:white;font-weight:bold;cursor:pointer}
+#reg{display:none}
+</style>
+
+<div class="box">
+
+    <!-- LOGIN -->
+    <div id="login">
+        <div class="text-center mb-4">
+            <div style="font-size:45px">🔐</div>
+            <h3>Login</h3>
         </div>
+
+        <form method="POST" action="{{url_for('login')}}">
+            <label>👤 Username</label>
+            <input name="username" class="form-control mb-3"
+                   placeholder="Enter username" required>
+
+            <label>🔑 Password</label>
+            <input type="password" name="password"
+                   class="form-control mb-4"
+                   placeholder="Enter password" required>
+
+            <button class="btn-v">🔓 Login</button>
+        </form>
+
+        <p class="text-center mt-3">
+            No account?
+            <span class="link" onclick="reg()">📝 Register</span>
+        </p>
     </div>
+
+    <!-- REGISTER -->
+    <div id="reg">
+        <div class="text-center mb-4">
+            <div style="font-size:45px">📝</div>
+            <h3>Create Account</h3>
+        </div>
+
+        <form method="POST" action="{{url_for('register')}}">
+            <label>👤 Username</label>
+            <input name="username" class="form-control mb-3"
+                   placeholder="Enter username" required>
+
+            <label>📧 Email ID</label>
+            <input type="email" name="email"
+                   class="form-control mb-3"
+                   placeholder="Enter email address" required>
+
+            <label>🔑 Password</label>
+            <input type="password" name="password"
+                   class="form-control mb-4"
+                   placeholder="Create password" required>
+
+            <button class="btn-v">✨ Register</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Already have account?
+            <span class="link" onclick="login()">🔐 Login</span>
+        </p>
+    </div>
+
 </div>
+
+<script>
+function reg(){
+ document.getElementById("login").style.display="none";
+ document.getElementById("reg").style.display="block";
+}
+function login(){
+ document.getElementById("reg").style.display="none";
+ document.getElementById("login").style.display="block";
+}
+</script>
+
 {% endblock %}

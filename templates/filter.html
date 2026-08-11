@@ -3,23 +3,113 @@
 
 {% block content %}
 
+<style>
+    html, body {
+        background: #5b2a86 !important;
+        color: white !important;
+    }
+
+    .container, .card, .card-body, .table-responsive {
+        background: #5b2a86 !important;
+    }
+
+    .card {
+        border: 1px solid rgba(255,255,255,.25) !important;
+    }
+
+    .text-muted { color: #eee !important; }
+    .text-primary { color: white !important; }
+
+    .form-select, .form-control {
+        background: #6d3599 !important;
+        color: white !important;
+        border-color: rgba(255,255,255,.4) !important;
+    }
+
+    .form-select option {
+        background: #5b2a86;
+        color: white;
+    }
+
+    .form-control::placeholder {
+        color: #ddd !important;
+    }
+
+    .table {
+        background: #5b2a86 !important;
+        color: white !important;
+        margin-bottom: 0;
+    }
+
+    .table th, .table td {
+        background: #5b2a86 !important;
+        color: white !important;
+        border-color: rgba(255,255,255,.25) !important;
+    }
+
+    .table-hover tbody tr:hover td {
+        background: #6d3599 !important;
+        color: white !important;
+    }
+
+    .table-primary th {
+        background: #7b3fa3 !important;
+        color: white !important;
+    }
+
+    .pagination .page-link {
+        color: white;
+        background: #6d3599;
+        border-color: #9b68bd;
+    }
+
+    .pagination .page-link:hover {
+        color: white;
+        background: #8a4bb0;
+        border-color: white;
+    }
+
+    .pagination .page-item.active .page-link {
+        color: white;
+        background: #9b59c4;
+        border-color: white;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #aaa;
+        background: #4a2269;
+        border-color: #754294;
+    }
+
+    .product-photo {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #9b59c4;
+    }
+</style>
+
 <div class="container py-4">
 
     <!-- Page Header -->
     <div class="text-center mb-4">
+
         <h1 class="fw-bold text-primary">
             📦 SmartTech Store
         </h1>
+
         <p class="text-muted">
             Search and Filter Products Easily
         </p>
+
     </div>
 
     <!-- Filter Card -->
-    <div class="card shadow-lg border-0 rounded-4 mb-4">
+    <div class="card shadow-lg rounded-4 mb-4">
 
         <div class="card-header text-white rounded-top-4"
-             style="background:linear-gradient(90deg,#0d6efd,#6610f2);">
+             style="background:linear-gradient(90deg,#7b3fa3,#5b2a86);">
 
             <h3 class="mb-0">
                 🔍 Filter Products
@@ -34,6 +124,7 @@
 
                 <div class="row g-3">
 
+                    <!-- Category -->
                     <div class="col-md-4">
 
                         <label class="fw-bold mb-2">
@@ -50,7 +141,7 @@
                             {% for cat in categories %}
 
                             <option value="{{ cat['category'] }}"
-                            {% if selected_category==cat['category'] %}
+                            {% if selected_category == cat['category'] %}
                             selected
                             {% endif %}>
 
@@ -64,43 +155,46 @@
 
                     </div>
 
+                    <!-- Minimum Price -->
                     <div class="col-md-3">
 
                         <label class="fw-bold mb-2">
                             Minimum Price
                         </label>
 
-                        <input
-                            type="number"
-                            class="form-control"
-                            name="min_price"
-                            placeholder="₹ Minimum"
-                            value="{{ min_price }}">
+                        <input type="number"
+                               class="form-control"
+                               name="min_price"
+                               placeholder="₹ Minimum"
+                               value="{{ min_price }}">
 
                     </div>
 
+                    <!-- Maximum Price -->
                     <div class="col-md-3">
 
                         <label class="fw-bold mb-2">
                             Maximum Price
                         </label>
 
-                        <input
-                            type="number"
-                            class="form-control"
-                            name="max_price"
-                            placeholder="₹ Maximum"
-                            value="{{ max_price }}">
+                        <input type="number"
+                               class="form-control"
+                               name="max_price"
+                               placeholder="₹ Maximum"
+                               value="{{ max_price }}">
 
                     </div>
 
+                    <!-- Filter Button -->
                     <div class="col-md-2 d-grid">
 
                         <label>&nbsp;</label>
 
-                        <button class="btn btn-warning text-white fw-bold"
+                        <button class="btn text-white fw-bold"
                                 style="background:linear-gradient(90deg,#ff512f,#f09819);">
+
                             🔍 Filter
+
                         </button>
 
                     </div>
@@ -113,11 +207,11 @@
 
     </div>
 
-    <!-- Result Card -->
+    <!-- Results -->
+    <div class="card shadow-lg rounded-4">
 
-    <div class="card shadow-lg border-0 rounded-4">
-
-        <div class="card-header bg-dark text-white d-flex justify-content-between">
+        <div class="card-header text-white d-flex justify-content-between"
+             style="background:#431d68;">
 
             <h4 class="mb-0">
                 📋 Filter Results
@@ -142,18 +236,11 @@
                         <tr>
 
                             <th>#</th>
-
                             <th>Product</th>
-
                             <th>Category</th>
-
                             <th>Price</th>
-
                             <th>Stock</th>
-
-                            <th width="260">
-                                Actions
-                            </th>
+                            <th width="260">Actions</th>
 
                         </tr>
 
@@ -165,53 +252,76 @@
 
                         <tr class="product-row">
 
-                            <td>{{ loop.index }}</td>
-
-                            <td class="fw-bold">
-                                {{ product.name }}
+                            <td>
+                                {{ loop.index }}
                             </td>
 
+                            <!-- Product Photo + Name -->
                             <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <img src="{{ url_for('static', filename='uploads/' ~ product.photo) }}"
+                                         class="product-photo me-2"
+                                         alt="{{ product.name }}">
+
+                                    <span class="fw-bold">
+                                        {{ product.name }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+                            <!-- Category -->
+                            <td>
+
                                 <span class="badge bg-info">
                                     {{ product.category }}
                                 </span>
+
                             </td>
 
+                            <!-- Price -->
                             <td>
+
                                 <span class="badge bg-success">
-                                    {{ product.price }}
+                                    ₹{{ product.price }}
                                 </span>
+
                             </td>
 
+                            <!-- Stock -->
                             <td>
+
                                 <span class="badge bg-success">
                                     {{ product.stock }}
                                 </span>
+
                             </td>
 
+                            <!-- Actions -->
                             <td>
 
-                                <a href="{{ url_for('product_detail',id=product.id) }}"
+                                <a href="{{ url_for('product_detail', id=product.id) }}"
                                    class="btn btn-primary btn-sm">
-
                                     👁 View
-
                                 </a>
 
-                                <a href="{{ url_for('edit_product',id=product.id) }}"
+                                {% if session.role == 'admin' %}
+
+                                <a href="{{ url_for('edit_product', id=product.id) }}"
                                    class="btn btn-warning btn-sm">
-
                                     ✏ Edit
-
                                 </a>
 
-                                <a href="{{ url_for('delete_product',id=product.id) }}"
+                                <a href="{{ url_for('delete_product', id=product.id) }}"
                                    class="btn btn-danger btn-sm"
                                    onclick="return confirm('Delete this product?')">
-
                                     🗑 Delete
-
                                 </a>
+
+                                {% endif %}
 
                             </td>
 
@@ -226,7 +336,6 @@
             </div>
 
             <!-- Pagination -->
-
             <div class="d-flex justify-content-center mt-4">
 
                 <nav>
@@ -257,6 +366,7 @@
 
     </div>
 
+    <!-- Back Button -->
     <div class="text-center mt-4">
 
         <a href="{{ url_for('product') }}"
@@ -270,9 +380,7 @@
 
 </div>
 
-
 <!-- Pagination JavaScript -->
-
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -283,8 +391,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const rowsPerPage = 8;
     let currentPage = 1;
 
-    const totalPages = Math.ceil(rows.length / rowsPerPage);
+    if (!pagination) return;
 
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
 
     function showPage(page) {
 
@@ -295,68 +404,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         rows.forEach((row, index) => {
 
-            if (index >= start && index < end) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
+            row.style.display =
+                index >= start && index < end ? "" : "none";
 
         });
 
         createPagination();
-
     }
-
 
     function createPagination() {
 
         pagination.innerHTML = "";
 
-        if (totalPages <= 1) {
-            return;
-        }
-
-
-        // Previous Button
+        if (totalPages <= 1) return;
 
         const previousLi = document.createElement("li");
 
         previousLi.className =
-            "page-item " + (currentPage === 1 ? "disabled" : "");
+            "page-item " +
+            (currentPage === 1 ? "disabled" : "");
 
-        previousLi.innerHTML = `
-            <a class="page-link" href="#">
-                Previous
-            </a>
-        `;
+        previousLi.innerHTML =
+            '<a class="page-link" href="#">Previous</a>';
 
         previousLi.addEventListener("click", function (e) {
 
             e.preventDefault();
 
-            if (currentPage > 1) {
+            if (currentPage > 1)
                 showPage(currentPage - 1);
-            }
 
         });
 
         pagination.appendChild(previousLi);
-
-
-        // Page Numbers
 
         for (let i = 1; i <= totalPages; i++) {
 
             const pageLi = document.createElement("li");
 
             pageLi.className =
-                "page-item " + (i === currentPage ? "active" : "");
+                "page-item " +
+                (i === currentPage ? "active" : "");
 
-            pageLi.innerHTML = `
-                <a class="page-link" href="#">
-                    ${i}
-                </a>
-            `;
+            pageLi.innerHTML =
+                '<a class="page-link" href="#">' + i + '</a>';
 
             pageLi.addEventListener("click", function (e) {
 
@@ -367,11 +458,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             pagination.appendChild(pageLi);
-
         }
-
-
-        // Next Button
 
         const nextLi = document.createElement("li");
 
@@ -379,51 +466,25 @@ document.addEventListener("DOMContentLoaded", function () {
             "page-item " +
             (currentPage === totalPages ? "disabled" : "");
 
-        nextLi.innerHTML = `
-            <a class="page-link" href="#">
-                Next
-            </a>
-        `;
+        nextLi.innerHTML =
+            '<a class="page-link" href="#">Next</a>';
 
         nextLi.addEventListener("click", function (e) {
 
             e.preventDefault();
 
-            if (currentPage < totalPages) {
+            if (currentPage < totalPages)
                 showPage(currentPage + 1);
-            }
 
         });
 
         pagination.appendChild(nextLi);
-
     }
-
 
     showPage(1);
 
 });
 
 </script>
-
-<style>
-    .pagination .page-link {
-        color: #ff5722;
-        background-color: #fff3e0;
-        border-color: #ff5722;
-    }
-
-    .pagination .page-link:hover {
-        color: white;
-        background-color: #ff5722;
-        border-color: #ff5722;
-    }
-
-    .pagination .page-item.active .page-link {
-        color: white;
-        background-color: #ff5722;
-        border-color: #ff5722;
-    }
-</style>
 
 {% endblock %}

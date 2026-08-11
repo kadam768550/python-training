@@ -5,6 +5,7 @@
 {% block content %}
 
 <style>
+
     html,
     body {
         background: #5b2a86 !important;
@@ -14,428 +15,606 @@
         background: transparent !important;
     }
 
-    .card-body {
+    .order-card {
         background: #5b2a86 !important;
-    }
-
-    /* Labels white */
-    .card-body .form-label {
         color: white !important;
     }
 
-    /* ALL INPUT BOXES VIOLET */
-    .card-body .form-control,
-    .card-body .form-select,
-    .card-body textarea {
-        background: #6f35a0 !important;
+    .order-card .form-control {
+        background: #5b2a86 !important;
         color: white !important;
-        border: 1px solid #8d5ab8 !important;
+        border: 2px solid white !important;
     }
 
-    /* Placeholder white/light */
-    .card-body .form-control::placeholder,
-    .card-body textarea::placeholder {
-        color: #e8dff0 !important;
-        opacity: 1;
+    .order-card .form-control::placeholder {
+        color: rgba(255,255,255,0.75) !important;
     }
 
-    /* Dropdown option */
-    .card-body .form-select option {
-        background: #6f35a0;
-        color: white;
-    }
-
-    /* Focus */
-    .card-body .form-control:focus,
-    .card-body .form-select:focus {
-        background: #6f35a0 !important;
+    .order-card .form-label {
         color: white !important;
-        border-color: #c9a0e8 !important;
-        box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.15) !important;
     }
 
-    .card-body hr {
-        border-color: rgba(255,255,255,0.5);
+    .product-list {
+        max-height: 400px;
+        overflow-y: auto;
     }
+
+    .product-item {
+        background: #5b2a86 !important;
+        color: white !important;
+        border: 2px solid white;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    /* SEARCH LIST PRODUCT PHOTO */
+    .product-photo {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid white;
+        flex-shrink: 0;
+    }
+
+    /* SELECTED PRODUCT PHOTO */
+    .selected-product-photo {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 3px solid white;
+        margin-top: 10px;
+    }
+
+    .product-info {
+        flex: 1;
+    }
+
+    .product-name {
+        font-weight: bold;
+        font-size: 17px;
+        color: white !important;
+    }
+
+    .selected-product {
+        background: #5b2a86 !important;
+        color: white !important;
+        border: 2px solid white;
+        border-radius: 12px;
+        padding: 18px;
+        margin-top: 15px;
+    }
+
+    .selected-product h5 {
+        color: white !important;
+    }
+
+    #selectedProductName {
+        color: white !important;
+    }
+
+    .price-box {
+        background: #5b2a86 !important;
+        color: white !important;
+        border: 2px solid white;
+        padding: 12px;
+        border-radius: 10px;
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .customer-box {
+        background: #5b2a86 !important;
+        color: white !important;
+        margin-top: 25px;
+        padding: 20px;
+        border: 2px solid white;
+        border-radius: 12px;
+    }
+
+    .customer-box h4 {
+        color: white !important;
+        margin-bottom: 20px;
+    }
+
+    .order-button {
+        width: 100%;
+        margin-top: 20px;
+        font-size: 18px;
+        padding: 12px;
+        font-weight: bold;
+    }
+
+    .old-order {
+        background: #ff8c00 !important;
+        color: black !important;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 25px;
+        border: 3px solid white;
+    }
+
+    .old-order h4,
+    .old-order h5 {
+        color: black !important;
+    }
+
+    .old-order p {
+        color: black !important;
+        margin-bottom: 8px;
+    }
+
+    .old-order hr {
+        border-color: black;
+    }
+
+    .order-number {
+        background: rgba(255,255,255,0.35);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .home-selected-photo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 3px solid white;
+    }
+
+    .product-detail-text {
+        color: white !important;
+        margin-bottom: 8px;
+    }
+
 </style>
+
 
 <div class="container py-5">
 
     <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
 
-        <!-- HEADER -->
-        <div class="card-header text-white text-center py-4"
-             style="background: linear-gradient(135deg, #ff6a00, #ff9800);">
-
-            <h2 class="fw-bold mb-2">
-                🛒 SmartTech Store - Order
-            </h2>
-
-            <p class="mb-0">
-                Search and select any product
-            </p>
-
-        </div>
-
-
-        <div class="card-body p-4">
-
-            <!-- SUCCESS MESSAGE -->
-            {% if message %}
-
-            <div class="alert alert-success text-center fw-bold">
-                ✅ {{ message }}
-            </div>
-
-            {% endif %}
-
-
-            <!-- ========================= -->
-            <!-- SEARCH PRODUCT -->
-            <!-- ========================= -->
-
-            <div class="mb-3">
-
-                <label class="form-label fw-bold">
-                    🔎 Search Product
-                </label>
-
-                <input
-                    type="text"
-                    id="productSearch"
-                    class="form-control form-control-lg"
-                    placeholder="Type product name to search..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-
-            <!-- SEARCH RESULTS -->
-
-            <div
-                id="searchResults"
-                class="list-group mb-4"
-                style="max-height:250px; overflow-y:auto;"
-            ></div>
-
-
-            <!-- ========================= -->
-            <!-- SELECT PRODUCT -->
-            <!-- ========================= -->
-
-            <div class="mb-4">
-
-                <label class="form-label fw-bold">
-                    📦 Select Product
-                </label>
-
-                <select
-                    name="product"
-                    id="product"
-                    class="form-select form-select-lg"
-                    required
-                >
-
-                    <option value="">
-                        -- Select Product --
-                    </option>
-
-                    {% for product in products %}
-
-                    <option
-                        value="{{ product['name'] }}"
-                        data-name="{{ product['name'] }}"
-                        data-price="{{ product['price'] }}"
-                    >
-                        {{ product['name'] }}
-                    </option>
-
-                    {% endfor %}
-
-                </select>
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- PRODUCT PRICE -->
-            <!-- ========================= -->
-
-            <div class="mb-4">
-
-                <label class="form-label fw-bold">
-                    💰 Product Price
-                </label>
-
-                <input
-                    type="text"
-                    id="price"
-                    class="form-control form-control-lg"
-                    value="₹0"
-                    readonly
-                >
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- QUANTITY -->
-            <!-- ========================= -->
-
-            <div class="mb-4">
-
-                <label class="form-label fw-bold">
-                    🔢 Quantity
-                </label>
-
-                <input
-                    type="number"
-                    name="quantity"
-                    id="quantity"
-                    class="form-control form-control-lg"
-                    value="1"
-                    min="1"
-                    required
-                >
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- TOTAL -->
-            <!-- ========================= -->
-
-            <div class="mb-4">
-
-                <label class="form-label fw-bold">
-                    💵 Total Amount
-                </label>
-
-                <input
-                    type="text"
-                    id="total"
-                    class="form-control form-control-lg fw-bold"
-                    value="₹0"
-                    readonly
-                >
-
-            </div>
-
-
-            <hr class="my-4">
-
-
-            <!-- ========================= -->
-            <!-- CUSTOMER DETAILS -->
-            <!-- ========================= -->
-
-            <h4 class="fw-bold text-primary mb-4">
-                👤 Customer Details
-            </h4>
-
-
-            <!-- NAME -->
-
-            <div class="mb-3">
-
-                <label class="form-label fw-bold">
-                    👤 Name
-                </label>
-
-                <input
-                    type="text"
-                    name="customer_name"
-                    class="form-control form-control-lg"
-                    placeholder="Enter your name"
-                    required
-                >
-
-            </div>
-
-
-            <!-- MOBILE -->
-
-            <div class="mb-3">
-
-                <label class="form-label fw-bold">
-                    📱 Mobile Number
-                </label>
-
-                <input
-                    type="tel"
-                    name="customer_phone"
-                    class="form-control form-control-lg"
-                    placeholder="Enter mobile number"
-                    required
-                >
-
-            </div>
-
-
-            <!-- ADDRESS -->
-
-            <div class="mb-4">
-
-                <label class="form-label fw-bold">
-                    📍 Delivery Address
-                </label>
-
-                <textarea
-                    name="address"
-                    class="form-control form-control-lg"
-                    rows="3"
-                    placeholder="Enter delivery address"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- PLACE ORDER -->
-            <!-- ========================= -->
-
-            <button
-                type="button"
-                onclick="placeOrder()"
-                class="btn btn-warning btn-lg w-100 fw-bold shadow"
+        <div class="card-body order-card p-4">
+
+            <form
+                method="POST"
+                action="{{ url_for('order') }}"
             >
-                🛍️ Place Order
-            </button>
 
+                <!-- ================================================= -->
+                <!-- HOME SE PRODUCT AAYA HAI -->
+                <!-- ================================================= -->
 
-            <!-- ========================= -->
-            <!-- ORDER DETAILS -->
-            <!-- ========================= -->
+                {% if selected_product %}
 
-            {% if order_details %}
+                <div class="selected-product">
 
-            <div class="card mt-5 border-0 shadow">
-
-                <div class="card-header bg-success text-white text-center py-3">
-
-                    <h4 class="mb-0 fw-bold">
-                        ✅ Order Details
+                    <h4 class="fw-bold mb-4">
+                        🛒 Selected Product
                     </h4>
 
-                </div>
+                    <div class="row align-items-center">
 
+                        <!-- Product Photo -->
+                        <div class="col-md-4 text-center mb-3 mb-md-0">
 
-                <div class="card-body p-4">
+                            {% if selected_product['photo'] %}
 
-                    <div class="row">
+                            <img
+                                src="{{ url_for('static', filename='uploads/' ~ selected_product['photo']) }}"
+                                class="home-selected-photo"
+                                alt="{{ selected_product['name'] }}"
+                            >
 
-
-                        <!-- PRODUCT -->
-
-                        <div class="col-md-6 mb-4">
-
-                            <div class="text-muted">
-                                📦 Product
-                            </div>
-
-                            <div class="fs-5 fw-bold">
-                                {{ order_details.product_name }}
-                            </div>
+                            {% endif %}
 
                         </div>
 
 
-                        <!-- PRICE -->
+                        <!-- Product Details -->
+                        <div class="col-md-8">
 
-                        <div class="col-md-6 mb-4">
+                            <h2
+                                class="fw-bold"
+                                style="color:white;"
+                            >
+                                {{ selected_product['name'] }}
+                            </h2>
 
-                            <div class="text-muted">
-                                💰 Price
+
+                            <p class="product-detail-text">
+                                <strong>Product ID:</strong>
+                                {{ selected_product['id'] }}
+                            </p>
+
+
+                            <p class="product-detail-text">
+                                <strong>Category:</strong>
+                                {{ selected_product['category'] }}
+                            </p>
+
+
+                            <p class="product-detail-text">
+                                <strong>Stock:</strong>
+                                {{ selected_product['stock'] }}
+                            </p>
+
+
+                            <div class="price-box">
+
+                                💰 Price:
+
+                                ₹{{ selected_product['price'] }}
+
                             </div>
 
-                            <div class="fs-5 fw-bold">
-                                ₹{{ "{:,.0f}".format(order_details.price) }}
-                            </div>
 
-                        </div>
-
-
-                        <!-- QUANTITY -->
-
-                        <div class="col-md-6 mb-4">
-
-                            <div class="text-muted">
-                                🔢 Quantity
-                            </div>
-
-                            <div class="fs-5 fw-bold">
-                                {{ order_details.quantity }}
-                            </div>
-
-                        </div>
-
-
-                        <!-- TOTAL -->
-
-                        <div class="col-md-6 mb-4">
-
-                            <div class="text-muted">
-                                💵 Total Amount
-                            </div>
-
-                            <div class="fs-4 fw-bold text-success">
-                                ₹{{ "{:,.0f}".format(order_details.total) }}
-                            </div>
-
-                        </div>
-
-
-                        <!-- CUSTOMER NAME -->
-
-                        <div class="col-md-6 mb-4">
-
-                            <div class="text-muted">
-                                👤 Customer Name
-                            </div>
-
-                            <div class="fs-5 fw-bold">
-                                {{ order_details.customer_name }}
-                            </div>
-
-                        </div>
-
-
-                        <!-- MOBILE -->
-
-                        <div class="col-md-6 mb-4">
-
-                            <div class="text-muted">
-                                📱 Mobile Number
-                            </div>
-
-                            <div class="fs-5 fw-bold">
-                                {{ order_details.customer_phone }}
-                            </div>
-
-                        </div>
-
-
-                        <!-- ADDRESS -->
-
-                        <div class="col-12">
-
-                            <div class="text-muted">
-                                📍 Delivery Address
-                            </div>
-
-                            <div class="fs-5 fw-bold">
-                                {{ order_details.address }}
-                            </div>
+                            <input
+                                type="hidden"
+                                name="product"
+                                value="{{ selected_product['id'] }}"
+                            >
 
                         </div>
 
                     </div>
 
+
+                    <!-- Quantity -->
+
+                    <div class="mt-4">
+
+                        <label class="form-label fw-bold">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            name="quantity"
+                            class="form-control"
+                            value="1"
+                            min="1"
+                        >
+
+                    </div>
+
                 </div>
 
-            </div>
+
+                {% else %}
+
+                <!-- ================================================= -->
+                <!-- NORMAL ORDER PAGE - SEARCH PRODUCT -->
+                <!-- ================================================= -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-bold">
+                        🔍 Search Product
+                    </label>
+
+                    <input
+                        type="text"
+                        id="searchProduct"
+                        class="form-control form-control-lg"
+                        placeholder="Tap here to search product..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div
+                    class="product-list"
+                    id="productList"
+                    style="display:none;"
+                >
+
+                    {% for product in products %}
+
+                    <div
+                        class="product-item product-row"
+                        data-name="{{ product['name']|lower }}"
+                    >
+
+                        <!-- PRODUCT PHOTO -->
+
+                        <div>
+
+                            {% if product['photo'] %}
+
+                            <img
+                                src="{{ url_for('static', filename='uploads/' ~ product['photo']) }}"
+                                class="product-photo"
+                                alt="{{ product['name'] }}"
+                            >
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- PRODUCT NAME -->
+
+                        <div class="product-info">
+
+                            <div class="product-name">
+                                {{ product['name'] }}
+                            </div>
+
+                        </div>
+
+
+                        <!-- SELECT BUTTON -->
+
+                        <button
+                            type="button"
+                            class="btn btn-primary select-product"
+                            data-id="{{ product['id'] }}"
+                            data-name="{{ product['name'] }}"
+                            data-price="{{ product['price'] }}"
+                            data-photo="{{ product['photo'] }}"
+                        >
+                            Select
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- SELECTED PRODUCT -->
+                <!-- ================================================= -->
+
+                <div
+                    class="selected-product"
+                    id="selectedProductBox"
+                >
+
+                    <h5 class="fw-bold">
+                        Selected Product
+                    </h5>
+
+
+                    <!-- SELECTED PRODUCT PHOTO -->
+
+                    <div class="text-center mb-3">
+
+                        <img
+                            id="selectedProductPhoto"
+                            class="selected-product-photo"
+                            src=""
+                            alt="Selected Product"
+                            style="display:none;"
+                        >
+
+                    </div>
+
+
+                    <div
+                        id="selectedProductName"
+                        class="fs-5"
+                    >
+                        No product selected
+                    </div>
+
+
+                    <input
+                        type="hidden"
+                        name="product"
+                        id="selectedProductId"
+                    >
+
+
+                    <div class="price-box">
+
+                        💰 Price:
+
+                        ₹<span id="selectedProductPrice">0</span>
+
+                    </div>
+
+
+                    <div class="mt-3">
+
+                        <label class="form-label fw-bold">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            name="quantity"
+                            id="quantity"
+                            class="form-control"
+                            value="1"
+                            min="1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                {% endif %}
+
+
+                <!-- ================================================= -->
+                <!-- CUSTOMER DETAILS -->
+                <!-- ================================================= -->
+
+                <div
+                    class="customer-box"
+                    id="customerDetails"
+                >
+
+                    <h4 class="fw-bold">
+                        👤 Customer Details
+                    </h4>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+                            Customer Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="customer_name"
+                            class="form-control"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="customer_phone"
+                            class="form-control"
+                            placeholder="Enter mobile number"
+                            maxlength="10"
+                            minlength="10"
+                            pattern="[0-9]{10}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+                            Address
+                        </label>
+
+                        <textarea
+                            name="address"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Enter complete address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-success order-button"
+                    >
+                        🛒 Place Order
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- ================================================= -->
+            <!-- ALL ORDERS -->
+            <!-- ================================================= -->
+
+            {% if orders %}
+
+                {% for order in orders %}
+
+                <div class="old-order">
+
+                    <h4 class="fw-bold">
+                        ✅ Order Placed Successfully
+                    </h4>
+
+                    <div class="order-number">
+                        Order #{{ loop.index }}
+                    </div>
+
+                    <hr>
+
+                    <p>
+                        <strong>Product:</strong>
+                        {{ order.product_name }}
+                    </p>
+
+                    <p>
+                        <strong>Price:</strong>
+                        ₹{{ order.price }}
+                    </p>
+
+                    <p>
+                        <strong>Quantity:</strong>
+                        {{ order.quantity }}
+                    </p>
+
+                    <p>
+                        <strong>Total Amount:</strong>
+                        ₹{{ order.total }}
+                    </p>
+
+                    <hr>
+
+                    <h5 class="fw-bold">
+                        👤 Customer Details
+                    </h5>
+
+                    <p>
+                        <strong>Name:</strong>
+                        {{ order.customer_name }}
+                    </p>
+
+                    <p>
+                        <strong>Mobile Number:</strong>
+                        {{ order.customer_phone }}
+                    </p>
+
+                    <p>
+                        <strong>Address:</strong>
+                        {{ order.address }}
+                    </p>
+
+                    <p>
+                        <strong>Order Date:</strong>
+                        {{ order.date }}
+                    </p>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('delete_order', order_id=order.id) }}"
+                        onsubmit="return confirm('Are you sure you want to delete this order?');"
+                    >
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger w-100 mt-3"
+                        >
+                            🗑️ Delete This Order
+                        </button>
+
+                    </form>
+
+                </div>
+
+                {% endfor %}
 
             {% endif %}
 
@@ -446,521 +625,161 @@
 </div>
 
 
-
 <script>
 
-/* ==========================================
-   ELEMENTS
-========================================== */
+    {% if not selected_product %}
 
-const searchInput =
-    document.getElementById("productSearch");
+    const searchInput =
+        document.getElementById("searchProduct");
 
-const searchResults =
-    document.getElementById("searchResults");
+    const productList =
+        document.getElementById("productList");
 
-const productSelect =
-    document.getElementById("product");
-
-const priceInput =
-    document.getElementById("price");
-
-const quantityInput =
-    document.getElementById("quantity");
-
-const totalInput =
-    document.getElementById("total");
+    const productRows =
+        document.querySelectorAll(".product-row");
 
 
-/* ==========================================
-   SEARCH PRODUCT
-========================================== */
+    searchInput.addEventListener(
+        "focus",
+        function () {
 
-searchInput.addEventListener("input", function () {
+            productList.style.display = "block";
 
-    const searchText =
-        this.value.toLowerCase().trim();
+            if (this.value.trim() === "") {
 
-    searchResults.innerHTML = "";
+                productRows.forEach(
+                    function(row) {
 
+                        row.style.display = "flex";
 
-    if (searchText === "") {
-        return;
-    }
+                    }
+                );
 
+            }
 
-    let found = false;
-
-
-    /* All products search */
-
-    for (
-        let i = 0;
-        i < productSelect.options.length;
-        i++
-    ) {
-
-        const option =
-            productSelect.options[i];
-
-
-        if (option.value === "") {
-            continue;
         }
+    );
 
 
-        const productName =
-            option.getAttribute("data-name");
+    searchInput.addEventListener(
+        "input",
+        function () {
 
-        const productPrice =
-            option.getAttribute("data-price");
+            const search =
+                this.value
+                    .toLowerCase()
+                    .trim();
 
+            productList.style.display = "block";
 
-        /* Product name search */
+            productRows.forEach(
+                function(row) {
 
-        if (
-            productName
-                .toLowerCase()
-                .includes(searchText)
-        ) {
+                    const name =
+                        row.dataset.name;
 
-            found = true;
+                    if (name.includes(search)) {
 
+                        row.style.display = "flex";
 
-            /* Search result */
+                    } else {
 
-            const result =
-                document.createElement("button");
+                        row.style.display = "none";
 
-            result.type = "button";
-
-            result.className =
-                "list-group-item list-group-item-action";
-
-
-            /*
-             * Search karte waqt
-             * Product + Price dikhega
-             */
-
-            result.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center">
-
-                    <strong>
-                        ${productName}
-                    </strong>
-
-                    <span class="badge bg-success fs-6">
-                        ₹${Number(productPrice).toLocaleString("en-IN")}
-                    </span>
-
-                </div>
-            `;
-
-
-            /* ==========================
-               SEARCH RESULT SELECT
-            ========================== */
-
-            result.addEventListener(
-                "click",
-                function () {
-
-
-                    /* Dropdown select */
-
-                    productSelect.value =
-                        option.value;
-
-
-                    /*
-                     * Search box mein
-                     * sirf product name
-                     */
-
-                    searchInput.value =
-                        productName;
-
-
-                    /*
-                     * Price alag box mein
-                     */
-
-                    priceInput.value =
-                        "₹" +
-                        Number(productPrice)
-                            .toLocaleString("en-IN");
-
-
-                    /*
-                     * Search results hide
-                     */
-
-                    searchResults.innerHTML =
-                        "";
-
-
-                    /*
-                     * Total calculate
-                     */
-
-                    calculateTotal();
+                    }
 
                 }
             );
 
-
-            searchResults.appendChild(result);
-
         }
-
-    }
-
-
-    /* ==========================
-       PRODUCT NOT FOUND
-    ========================== */
-
-    if (!found) {
-
-        const noResult =
-            document.createElement("div");
-
-        noResult.className =
-            "alert alert-warning mb-0";
-
-        noResult.innerHTML =
-            "❌ Product nahi mila.";
-
-        searchResults.appendChild(
-            noResult
-        );
-
-    }
-
-});
+    );
 
 
-/* ==========================================
-   DROPDOWN CHANGE
-========================================== */
+    document.querySelectorAll(
+        ".select-product"
+    ).forEach(
+        function(button) {
 
-productSelect.addEventListener(
-    "change",
-    function () {
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const id =
+                        this.dataset.id;
+
+                    const name =
+                        this.dataset.name;
+
+                    const price =
+                        this.dataset.price;
+
+                    const photo =
+                        this.dataset.photo;
 
 
-        const option =
-            this.options[
-                this.selectedIndex
-            ];
+                    document.getElementById(
+                        "selectedProductId"
+                    ).value = id;
 
 
-        const productName =
-            option.getAttribute(
-                "data-name"
+                    document.getElementById(
+                        "selectedProductName"
+                    ).textContent = name;
+
+
+                    document.getElementById(
+                        "selectedProductPrice"
+                    ).textContent = price;
+
+
+                    /* SHOW SELECTED PRODUCT PHOTO */
+
+                    const selectedPhoto =
+                        document.getElementById(
+                            "selectedProductPhoto"
+                        );
+
+
+                    if (photo) {
+
+                        selectedPhoto.src =
+                            "{{ url_for('static', filename='uploads/') }}" + photo;
+
+                        selectedPhoto.style.display =
+                            "inline-block";
+
+                    } else {
+
+                        selectedPhoto.style.display =
+                            "none";
+
+                    }
+
+
+                    productList.style.display =
+                        "none";
+
+
+                    searchInput.value = "";
+
+
+                    document.getElementById(
+                        "selectedProductBox"
+                    ).scrollIntoView({
+
+                        behavior: "smooth",
+
+                        block: "center"
+
+                    });
+
+                }
             );
 
-
-        const productPrice =
-            option.getAttribute(
-                "data-price"
-            );
-
-
-        if (productPrice) {
-
-
-            /* Search box */
-
-            searchInput.value =
-                productName;
-
-
-            /* Price */
-
-            priceInput.value =
-                "₹" +
-                Number(productPrice)
-                    .toLocaleString("en-IN");
-
-
-            /* Total */
-
-            calculateTotal();
-
         }
-        else {
-
-            searchInput.value = "";
-
-            priceInput.value = "₹0";
-
-            totalInput.value = "₹0";
-
-        }
-
-    }
-);
-
-
-/* ==========================================
-   QUANTITY CHANGE
-========================================== */
-
-quantityInput.addEventListener(
-    "input",
-    calculateTotal
-);
-
-
-/* ==========================================
-   CALCULATE TOTAL
-========================================== */
-
-function calculateTotal() {
-
-
-    const option =
-        productSelect.options[
-            productSelect.selectedIndex
-        ];
-
-
-    const price =
-        option.getAttribute(
-            "data-price"
-        );
-
-
-    const quantity =
-        Number(quantityInput.value);
-
-
-    if (
-        price &&
-        quantity > 0
-    ) {
-
-
-        const total =
-            Number(price) * quantity;
-
-
-        totalInput.value =
-            "₹" +
-            total.toLocaleString(
-                "en-IN"
-            );
-
-    }
-    else {
-
-        totalInput.value =
-            "₹0";
-
-    }
-
-}
-
-
-/* ==========================================
-   PLACE ORDER
-========================================== */
-
-function placeOrder() {
-
-
-    const product =
-        productSelect.value;
-
-
-    const quantity =
-        quantityInput.value;
-
-
-    const customerName =
-        document
-            .querySelector(
-                'input[name="customer_name"]'
-            )
-            .value
-            .trim();
-
-
-    const customerPhone =
-        document
-            .querySelector(
-                'input[name="customer_phone"]'
-            )
-            .value
-            .trim();
-
-
-    const address =
-        document
-            .querySelector(
-                'textarea[name="address"]'
-            )
-            .value
-            .trim();
-
-
-    /* Product check */
-
-    if (!product) {
-
-        alert(
-            "Please select a product."
-        );
-
-        return;
-
-    }
-
-
-    /* Name check */
-
-    if (!customerName) {
-
-        alert(
-            "Please enter your name."
-        );
-
-        return;
-
-    }
-
-
-    /* Mobile check */
-
-    if (!customerPhone) {
-
-        alert(
-            "Please enter mobile number."
-        );
-
-        return;
-
-    }
-
-
-    /* Address check */
-
-    if (!address) {
-
-        alert(
-            "Please enter delivery address."
-        );
-
-        return;
-
-    }
-
-
-    /* ==========================
-       CREATE POST FORM
-    ========================== */
-
-    const form =
-        document.createElement(
-            "form"
-        );
-
-
-    form.method = "POST";
-
-
-    form.action =
-        "{{ url_for('order') }}";
-
-
-    /* Product */
-
-    addHiddenInput(
-        form,
-        "product",
-        product
     );
 
-
-    /* Quantity */
-
-    addHiddenInput(
-        form,
-        "quantity",
-        quantity
-    );
-
-
-    /* Customer name */
-
-    addHiddenInput(
-        form,
-        "customer_name",
-        customerName
-    );
-
-
-    /* Mobile */
-
-    addHiddenInput(
-        form,
-        "customer_phone",
-        customerPhone
-    );
-
-
-    /* Address */
-
-    addHiddenInput(
-        form,
-        "address",
-        address
-    );
-
-
-    document.body.appendChild(
-        form
-    );
-
-
-    form.submit();
-
-}
-
-
-/* ==========================================
-   HIDDEN INPUT
-========================================== */
-
-function addHiddenInput(
-    form,
-    name,
-    value
-) {
-
-
-    const input =
-        document.createElement(
-            "input"
-        );
-
-
-    input.type = "hidden";
-
-
-    input.name = name;
-
-
-    input.value = value;
-
-
-    form.appendChild(
-        input
-    );
-
-}
+    {% endif %}
 
 </script>
 

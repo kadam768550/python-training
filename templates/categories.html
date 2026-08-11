@@ -2,17 +2,48 @@
 {% block title %}Categories - SmartTech Store{% endblock %}
 
 {% block content %}
+
+<style>
+.category-card{
+    color:white!important;
+    border:0;
+    border-radius:12px;
+    min-height:120px;
+}
+.category-card h2,.category-card p{color:white!important}
+.c1{background:#e83e78}.c2{background:#2585df}.c3{background:#43b83c}
+.c4{background:#f58220}.c5{background:#9654d8}.c6{background:#f7b900}
+.c7{background:#20aaa6}.c8{background:#d94391}.c9{background:#63bd32}
+.c10{background:#f04b32}.c11{background:#536fd7}.c12{background:#a97845}
+</style>
+
 <h2 class="fw-bold mb-4">Product Categories</h2>
 
 <div class="row">
 {% for row in rows %}
 <div class="col-md-3 mb-3">
-    <div class="card shadow-sm text-center p-3">
-        <h2 class="fw-bold" style="color:#1e3a5f;">
-            {{ row['product_count'] }}
-        </h2>
-        <p class="mb-0">{{ row['category_name'] }}</p>
+<div class="card category-card c{{ loop.index }} shadow-sm text-center p-3">
+
+    <div style="font-size:38px">
+        {% if loop.index==1 %}🎧
+        {% elif loop.index==2 %}🔊
+        {% elif loop.index==3 %}⚙️
+        {% elif loop.index==4 %}🛋️
+        {% elif loop.index==5 %}💻
+        {% elif loop.index==6 %}📱
+        {% elif loop.index==7 %}🖥️
+        {% elif loop.index==8 %}📡
+        {% elif loop.index==9 %}🪑
+        {% elif loop.index==10 %}🖨️
+        {% elif loop.index==11 %}💾
+        {% elif loop.index==12 %}⌚
+        {% endif %}
     </div>
+
+    <h2 class="fw-bold mb-1">{{ row['product_count'] }}</h2>
+    <p class="mb-0">{{ row['category_name'] }}</p>
+
+</div>
 </div>
 {% endfor %}
 </div>
