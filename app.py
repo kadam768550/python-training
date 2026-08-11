@@ -514,6 +514,10 @@ def register():
             'password'
         ]
 
+        confirm_password = request.form[
+            'confirm_password'
+        ]
+
         conn = get_db()
 
         existing = conn.execute(
@@ -573,10 +577,6 @@ def login():
 
         username = request.form[
             'username'
-        ].strip()
-
-        email = request.form[
-            'email'
         ].strip()
 
         password = request.form[

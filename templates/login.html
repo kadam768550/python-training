@@ -1,99 +1,153 @@
 {% extends 'base.html' %}
-{% block title %}Account{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
 
 <style>
 body{background:#5b2a86!important}
-.box{
- max-width:460px;margin:50px auto;background:#6f35a0;
- border:2px solid #9b6ac0;border-radius:18px;
- padding:25px;box-shadow:0 10px 30px #32104d
+
+.login-page{
+ max-width:1000px;margin:45px auto;display:flex;
+ background:#6f35a0;border-radius:18px;overflow:hidden;
+ box-shadow:0 10px 30px #32104d
 }
-h3,h4,label,p{color:white}
+
+.login-left{
+ width:50%;padding:45px 30px;text-align:center;color:white;
+ display:flex;flex-direction:column;justify-content:center
+}
+
+.login-left .user-icon{
+ width:150px;height:150px;border-radius:50%;
+ background:white;margin:0 auto 25px;
+ display:flex;align-items:center;justify-content:center;
+ font-size:80px
+}
+
+.login-left h1{font-weight:bold;font-size:38px}
+.login-left p{font-size:17px;line-height:1.6}
+.store-icons{font-size:38px;margin-top:20px;word-spacing:18px}
+
+.login-box{
+ width:50%;background:#fff;padding:35px
+}
+
+.login-icon{text-align:center;font-size:45px}
+.login-box h4{color:#5b2a86}
+.login-box label{color:#333;font-weight:bold}
+
 .form-control{
- background:#7d49aa!important;color:white!important;
- border:2px solid #a77acb!important;border-radius:10px
+ border:2px solid #c5a8dc!important;border-radius:10px;
+ padding:11px
 }
-.form-control::placeholder{color:#eee}
-.btn-v{
+
+.password-box{position:relative}
+.password-box .form-control{padding-right:50px}
+
+.password-eye{
+ position:absolute;right:15px;top:9px;
+ cursor:pointer;font-size:22px
+}
+
+.btn-login{
  width:100%;padding:11px;border:0;border-radius:10px;
  background:linear-gradient(90deg,#4b2070,#8e44ad);
  color:white;font-weight:bold
 }
-.link{color:white;font-weight:bold;cursor:pointer}
-#reg{display:none}
+
+.login-box a{color:#6f35a0;font-weight:bold}
+
+@media(max-width:768px){
+ .login-page{margin:20px 12px;display:block}
+ .login-left,.login-box{width:100%}
+ .login-left{padding:30px 20px}
+ .login-left .user-icon{width:110px;height:110px;font-size:60px}
+ .login-left h1{font-size:30px}
+}
 </style>
 
-<div class="box">
+<div class="login-page">
 
-    <!-- LOGIN -->
-    <div id="login">
-        <div class="text-center mb-4">
-            <div style="font-size:45px">🔐</div>
-            <h3>Login</h3>
+    <!-- LEFT SIDE -->
+    <div class="login-left">
+
+        <div class="user-icon">👨‍💼</div>
+
+        <h1>🛒 SmartTech<br>Store</h1>
+
+        <p>
+            Your Smart Solution For Easy
+            Product & Inventory Management.
+        </p>
+
+        <div class="store-icons">
+            🛒 📦 💻
         </div>
 
-        <form method="POST" action="{{url_for('login')}}">
-            <label>👤 Username</label>
-            <input name="username" class="form-control mb-3"
-                   placeholder="Enter username" required>
-
-            <label>🔑 Password</label>
-            <input type="password" name="password"
-                   class="form-control mb-4"
-                   placeholder="Enter password" required>
-
-            <button class="btn-v">🔓 Login</button>
-        </form>
-
-        <p class="text-center mt-3">
-            No account?
-            <span class="link" onclick="reg()">📝 Register</span>
-        </p>
     </div>
 
-    <!-- REGISTER -->
-    <div id="reg">
-        <div class="text-center mb-4">
-            <div style="font-size:45px">📝</div>
-            <h3>Create Account</h3>
-        </div>
+    <!-- LOGIN SIDE -->
+    <div class="login-box">
 
-        <form method="POST" action="{{url_for('register')}}">
+        <div class="login-icon">🔐</div>
+
+        <h4 class="fw-bold text-center mb-4">
+            Login
+        </h4>
+
+        <form method="POST" action="{{url_for('login')}}">
+
             <label>👤 Username</label>
-            <input name="username" class="form-control mb-3"
-                   placeholder="Enter username" required>
-
-            <label>📧 Email ID</label>
-            <input type="email" name="email"
+            <input type="text"
+                   name="username"
                    class="form-control mb-3"
-                   placeholder="Enter email address" required>
+                   placeholder="Enter username"
+                   required>
 
             <label>🔑 Password</label>
-            <input type="password" name="password"
-                   class="form-control mb-4"
-                   placeholder="Create password" required>
 
-            <button class="btn-v">✨ Register</button>
+            <div class="password-box">
+                <input type="password"
+                       id="loginPassword"
+                       name="password"
+                       class="form-control mb-4"
+                       placeholder="Enter password"
+                       required>
+
+                <span class="password-eye"
+                      onclick="togglePassword('loginPassword',this)">
+                    👁️
+                </span>
+            </div>
+
+            <button type="submit" class="btn-login">
+                🔓 Login
+            </button>
+
         </form>
 
-        <p class="text-center mt-3">
-            Already have account?
-            <span class="link" onclick="login()">🔐 Login</span>
+        <p class="text-center mt-3 mb-0">
+            No account?
+            <a href="{{url_for('register')}}">
+                📝 Register here
+            </a>
         </p>
+
     </div>
 
 </div>
 
 <script>
-function reg(){
- document.getElementById("login").style.display="none";
- document.getElementById("reg").style.display="block";
-}
-function login(){
- document.getElementById("reg").style.display="none";
- document.getElementById("login").style.display="block";
+function togglePassword(id,eye){
+    let input=document.getElementById(id);
+
+    if(input.type==="password"){
+        input.type="text";
+        eye.innerHTML="🙈";
+    }else{
+        input.type="password";
+        eye.innerHTML="👁️";
+    }
 }
 </script>
 
