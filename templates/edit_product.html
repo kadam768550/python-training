@@ -113,16 +113,10 @@ html,body{
 }
 </style>
 
-
 <div class="container edit-wrapper">
-
     <div class="row g-4 align-items-stretch">
-
-        <!-- LEFT SIDE -->
         <div class="col-md-6">
-
             <div class="info-box">
-
                 <div class="info-icon">
                     👨‍💼
                 </div>
@@ -139,23 +133,16 @@ html,body{
                 <div class="info-icons">
                     🛒 📦 💻
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- RIGHT SIDE -->
         <div class="col-md-6">
-
             <div class="edit-card">
-
                 <div class="edit-header">
                     <h5>✏️ Edit Product</h5>
                 </div>
 
                 <div class="card-body p-4">
-
                     <!-- Current values -->
                     <div class="alert alert-info py-2 mb-4">
                         <small>
@@ -167,7 +154,6 @@ html,body{
                         </small>
                     </div>
 
-
                     <form action="{{url_for('edit_product',id=product['id'])}}"
                           method="POST"
                           enctype="multipart/form-data">
@@ -176,7 +162,6 @@ html,body{
                             <label class="form-label fw-bold">
                                 📦 Product Name
                             </label>
-
                             <input required
                                    name="product_name"
                                    class="form-control"
@@ -185,12 +170,10 @@ html,body{
                                    value="{{ product['name'] }}">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label fw-bold">
                                 🏷️ Category
                             </label>
-
                             <input required
                                    name="category"
                                    class="form-control"
@@ -199,12 +182,10 @@ html,body{
                                    value="{{ product['category'] }}">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label fw-bold">
                                 💰 Price
                             </label>
-
                             <input required
                                    name="price"
                                    min="0"
@@ -214,12 +195,10 @@ html,body{
                                    value="{{ product['price'] }}">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label fw-bold">
                                 📊 Stock
                             </label>
-
                             <input required
                                    name="stock"
                                    min="0"
@@ -229,21 +208,17 @@ html,body{
                                    value="{{ product['stock'] }}">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label fw-bold">
                                 📷 Product Photo
                             </label>
-
                             <input name="photo"
                                    class="form-control"
                                    type="file"
                                    accept="image/*">
                         </div>
 
-
                         <div class="d-grid">
-
                             <button type="submit"
                                     class="edit-btn">
                                 💾 Save Changes
@@ -253,16 +228,11 @@ html,body{
                                class="btn btn-outline-light cancel-btn mt-2">
                                 ❌ Cancel
                             </a>
-
                         </div>
-
                     </form>
-
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 

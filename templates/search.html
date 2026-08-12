@@ -141,47 +141,35 @@
                         </td>
                         <!-- Product Photo + Name -->
                         <td>
-
                             <div class="d-flex align-items-center">
-
                                 <img src="{{ url_for('static', filename='uploads/' ~ product['photo']) }}"
                                      class="product-photo me-2"
                                      alt="{{ product['name'] }}">
-
                                 <strong>
                                     {{ product['name'] }}
                                 </strong>
-
                             </div>
-
                         </td>
 
                         <td>
-
                             <span class="badge bg-secondary">
                                 {{ product['category'] }}
                             </span>
-
                         </td>
 
                         <td>
-
                             <span class="badge bg-danger">
                                 ₹{{ product['price'] }}
                             </span>
-
                         </td>
 
                         <td>
-
                             <span class="badge bg-success">
                                 {{ product['stock'] }}
                             </span>
-
                         </td>
 
                         <td class="text-center">
-
                             <a href="{{ url_for('product_detail', id=product['id']) }}"
                                class="btn btn-info btn-sm">
                                 👁 View
@@ -199,63 +187,40 @@
                                onclick="return confirm('Are you sure you want to delete this product?');">
                                 🗑 Delete
                             </a>
-
                             {% endif %}
-
                         </td>
-
                     </tr>
-
                 {% endfor %}
-
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <!-- PAGINATION -->
-
 <div class="d-flex justify-content-center align-items-center mt-4">
-
     <nav aria-label="Search results pagination">
-
         <ul class="pagination mb-0">
-
             <li class="page-item" id="prevPage">
-
                 <button class="page-link"
                         onclick="changePage(currentPage - 1)">
                     « Previous
                 </button>
-
             </li>
 
             <span id="pageNumbers" class="d-flex"></span>
-
             <li class="page-item" id="nextPage">
-
                 <button class="page-link"
                         onclick="changePage(currentPage + 1)">
                     Next »
                 </button>
-
             </li>
-
         </ul>
-
     </nav>
-
 </div>
 
 <div class="text-center mt-2">
-
     <small class="text-muted" id="pageInfo"></small>
-
 </div>
 
 {% else %}
@@ -269,71 +234,47 @@
     </p>
 
 </div>
-
 {% endif %}
 
 <!-- PAGINATION SCRIPT -->
-
 <script>
-
 const rowsPerPage = 8;
 let currentPage = 1;
-
 const rows = document.querySelectorAll(".product-row");
 const totalPages = Math.ceil(rows.length / rowsPerPage);
-
 function showPage(page) {
-
     if (page < 1) page = 1;
-
     if (page > totalPages) page = totalPages;
-
     currentPage = page;
-
     rows.forEach((row, index) => {
-
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-
         row.style.display =
             index >= start && index < end ? "" : "none";
-
     });
-
     updatePagination();
 }
 
 function changePage(page) {
-
     if (page >= 1 && page <= totalPages) {
         showPage(page);
     }
-
 }
 
 function updatePagination() {
-
     const pageNumbers =
         document.getElementById("pageNumbers");
-
     if (!pageNumbers) return;
-
     pageNumbers.innerHTML = "";
-
     for (let i = 1; i <= totalPages; i++) {
-
         const li = document.createElement("li");
-
         li.className =
             "page-item" +
             (i === currentPage ? " active" : "");
-
         const button =
             document.createElement("button");
-
         button.className = "page-link";
         button.innerText = i;
-
         button.onclick = function () {
             changePage(i);
         };
@@ -344,10 +285,8 @@ function updatePagination() {
 
     const prev =
         document.getElementById("prevPage");
-
     const next =
         document.getElementById("nextPage");
-
     if (prev) {
         prev.classList.toggle(
             "disabled",
@@ -364,18 +303,14 @@ function updatePagination() {
 
     const pageInfo =
         document.getElementById("pageInfo");
-
     if (pageInfo && rows.length > 0) {
-
         const start =
             ((currentPage - 1) * rowsPerPage) + 1;
-
         const end =
             Math.min(
                 currentPage * rowsPerPage,
                 rows.length
             );
-
         pageInfo.innerText =
             "Showing " +
             start +
@@ -386,11 +321,9 @@ function updatePagination() {
             " products";
     }
 }
-
 if (rows.length > 0) {
     showPage(1);
 }
-
 </script>
 
 {% endblock %}

@@ -91,148 +91,103 @@
 </style>
 
 <div class="container py-4">
-
     <!-- Page Header -->
     <div class="text-center mb-4">
-
         <h1 class="fw-bold text-primary">
             📦 SmartTech Store
         </h1>
-
         <p class="text-muted">
             Search and Filter Products Easily
         </p>
-
     </div>
 
     <!-- Filter Card -->
     <div class="card shadow-lg rounded-4 mb-4">
-
         <div class="card-header text-white rounded-top-4"
              style="background:linear-gradient(90deg,#7b3fa3,#5b2a86);">
 
             <h3 class="mb-0">
                 🔍 Filter Products
             </h3>
-
         </div>
 
         <div class="card-body">
-
             <form method="GET"
                   action="{{ url_for('filter_products') }}">
 
                 <div class="row g-3">
-
-                    <!-- Category -->
                     <div class="col-md-4">
-
                         <label class="fw-bold mb-2">
                             Category
                         </label>
-
                         <select class="form-select"
                                 name="category">
-
                             <option value="">
                                 All Categories
                             </option>
 
                             {% for cat in categories %}
-
                             <option value="{{ cat['category'] }}"
                             {% if selected_category == cat['category'] %}
                             selected
                             {% endif %}>
-
                                 {{ cat['category'] }}
-
                             </option>
-
                             {% endfor %}
-
                         </select>
-
                     </div>
 
-                    <!-- Minimum Price -->
                     <div class="col-md-3">
-
                         <label class="fw-bold mb-2">
                             Minimum Price
                         </label>
-
                         <input type="number"
                                class="form-control"
                                name="min_price"
                                placeholder="₹ Minimum"
                                value="{{ min_price }}">
-
                     </div>
 
-                    <!-- Maximum Price -->
                     <div class="col-md-3">
-
                         <label class="fw-bold mb-2">
                             Maximum Price
                         </label>
-
                         <input type="number"
                                class="form-control"
                                name="max_price"
                                placeholder="₹ Maximum"
                                value="{{ max_price }}">
-
                     </div>
 
-                    <!-- Filter Button -->
                     <div class="col-md-2 d-grid">
-
                         <label>&nbsp;</label>
-
                         <button class="btn text-white fw-bold"
                                 style="background:linear-gradient(90deg,#ff512f,#f09819);">
-
                             🔍 Filter
-
                         </button>
-
                     </div>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
 
     <!-- Results -->
     <div class="card shadow-lg rounded-4">
-
         <div class="card-header text-white d-flex justify-content-between"
              style="background:#431d68;">
-
             <h4 class="mb-0">
                 📋 Filter Results
             </h4>
-
             <span class="badge bg-warning text-dark fs-6">
                 {{ products|length }} Products
             </span>
-
         </div>
 
         <div class="card-body">
-
             {% if products %}
-
             <div class="table-responsive">
-
                 <table class="table table-hover table-bordered align-middle text-center">
-
                     <thead class="table-primary">
-
                         <tr>
 
                             <th>#</th>
@@ -241,68 +196,47 @@
                             <th>Price</th>
                             <th>Stock</th>
                             <th width="260">Actions</th>
-
                         </tr>
-
                     </thead>
 
                     <tbody id="productTableBody">
-
                         {% for product in products %}
-
                         <tr class="product-row">
-
                             <td>
                                 {{ loop.index }}
                             </td>
 
                             <!-- Product Photo + Name -->
                             <td>
-
                                 <div class="d-flex align-items-center">
-
                                     <img src="{{ url_for('static', filename='uploads/' ~ product.photo) }}"
                                          class="product-photo me-2"
                                          alt="{{ product.name }}">
-
                                     <span class="fw-bold">
                                         {{ product.name }}
                                     </span>
-
                                 </div>
-
                             </td>
 
-                            <!-- Category -->
                             <td>
-
                                 <span class="badge bg-info">
                                     {{ product.category }}
                                 </span>
-
                             </td>
 
-                            <!-- Price -->
                             <td>
-
                                 <span class="badge bg-success">
                                     ₹{{ product.price }}
                                 </span>
-
                             </td>
 
-                            <!-- Stock -->
                             <td>
-
                                 <span class="badge bg-success">
                                     {{ product.stock }}
                                 </span>
-
                             </td>
 
-                            <!-- Actions -->
                             <td>
-
                                 <a href="{{ url_for('product_detail', id=product.id) }}"
                                    class="btn btn-primary btn-sm">
                                     👁 View
@@ -320,104 +254,69 @@
                                    onclick="return confirm('Delete this product?')">
                                     🗑 Delete
                                 </a>
-
                                 {% endif %}
-
                             </td>
-
                         </tr>
-
                         {% endfor %}
-
                     </tbody>
-
                 </table>
-
             </div>
 
             <!-- Pagination -->
             <div class="d-flex justify-content-center mt-4">
-
                 <nav>
                     <ul class="pagination" id="pagination"></ul>
                 </nav>
-
             </div>
 
             {% else %}
-
             <div class="text-center py-5">
-
                 <h1>📦</h1>
-
                 <h4 class="text-danger">
                     No Products Found
                 </h4>
-
                 <p class="text-muted">
                     Try changing the category or price range.
                 </p>
-
             </div>
-
             {% endif %}
-
         </div>
-
     </div>
 
-    <!-- Back Button -->
     <div class="text-center mt-4">
-
         <a href="{{ url_for('product') }}"
            class="btn btn-secondary btn-lg">
-
             ⬅ Back to Products
-
         </a>
-
     </div>
-
 </div>
 
 <!-- Pagination JavaScript -->
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
-
     const rows = document.querySelectorAll(".product-row");
     const pagination = document.getElementById("pagination");
-
     const rowsPerPage = 8;
     let currentPage = 1;
 
     if (!pagination) return;
-
     const totalPages = Math.ceil(rows.length / rowsPerPage);
 
     function showPage(page) {
-
         currentPage = page;
-
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
         rows.forEach((row, index) => {
-
             row.style.display =
                 index >= start && index < end ? "" : "none";
-
         });
-
         createPagination();
     }
 
     function createPagination() {
-
         pagination.innerHTML = "";
-
         if (totalPages <= 1) return;
-
         const previousLi = document.createElement("li");
 
         previousLi.className =
@@ -428,18 +327,14 @@ document.addEventListener("DOMContentLoaded", function () {
             '<a class="page-link" href="#">Previous</a>';
 
         previousLi.addEventListener("click", function (e) {
-
             e.preventDefault();
 
             if (currentPage > 1)
                 showPage(currentPage - 1);
-
         });
 
         pagination.appendChild(previousLi);
-
         for (let i = 1; i <= totalPages; i++) {
-
             const pageLi = document.createElement("li");
 
             pageLi.className =
@@ -450,18 +345,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 '<a class="page-link" href="#">' + i + '</a>';
 
             pageLi.addEventListener("click", function (e) {
-
                 e.preventDefault();
-
                 showPage(i);
-
             });
 
             pagination.appendChild(pageLi);
         }
 
         const nextLi = document.createElement("li");
-
         nextLi.className =
             "page-item " +
             (currentPage === totalPages ? "disabled" : "");
@@ -470,21 +361,14 @@ document.addEventListener("DOMContentLoaded", function () {
             '<a class="page-link" href="#">Next</a>';
 
         nextLi.addEventListener("click", function (e) {
-
             e.preventDefault();
-
             if (currentPage < totalPages)
                 showPage(currentPage + 1);
-
         });
-
         pagination.appendChild(nextLi);
     }
-
     showPage(1);
-
 });
-
 </script>
 
 {% endblock %}

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block title %}Add Product{% endblock %}
 
 {% block content %}
@@ -122,14 +121,9 @@ input[type="file"]{
 
 
 <div class="container add-wrapper">
-
     <div class="row g-4 align-items-stretch">
-
-        <!-- LEFT SIDE -->
         <div class="col-md-6">
-
             <div class="info-box">
-
                 <div class="info-icon">
                     👨‍💼
                 </div>
@@ -146,24 +140,17 @@ input[type="file"]{
                 <div class="info-icons">
                     🛒 📦 💻
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- RIGHT SIDE -->
         <div class="col-md-6">
-
             <div class="product-card">
-
                 <div class="product-header text-center">
                     <h3>➕ Add New Product</h3>
                     <small>Add product details to your inventory</small>
                 </div>
 
                 <div class="card-body p-4">
-
                     <form method="POST"
                           action="{{ url_for('add_product') }}"
                           enctype="multipart/form-data">
@@ -172,7 +159,6 @@ input[type="file"]{
                             <label class="form-label">
                                 📦 Product Name
                             </label>
-
                             <input required
                                    name="name"
                                    class="form-control"
@@ -180,12 +166,10 @@ input[type="file"]{
                                    type="text">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label">
                                 🏷️ Category
                             </label>
-
                             <input required
                                    name="category"
                                    class="form-control"
@@ -193,12 +177,10 @@ input[type="file"]{
                                    type="text">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label">
                                 💰 Price
                             </label>
-
                             <input required
                                    name="price"
                                    class="form-control"
@@ -206,12 +188,10 @@ input[type="file"]{
                                    type="number">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label">
                                 📊 Stock
                             </label>
-
                             <input required
                                    name="stock"
                                    class="form-control"
@@ -219,18 +199,15 @@ input[type="file"]{
                                    type="number">
                         </div>
 
-
                         <div class="mb-3">
                             <label class="form-label">
                                 📷 Product Photo
                             </label>
-
                             <input name="photo"
                                    class="form-control"
                                    type="file"
                                    accept="image/*">
                         </div>
-
 
                         <div class="d-grid">
                             <button type="submit"
@@ -238,14 +215,10 @@ input[type="file"]{
                                 ➕ Add Product
                             </button>
                         </div>
-
                     </form>
-
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 

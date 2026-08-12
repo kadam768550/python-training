@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block title %}Register{% endblock %}
-
 {% block content %}
 
 <style>
@@ -18,7 +17,6 @@ body{
     box-shadow:0 10px 35px #32104d;
 }
 
-/* LEFT */
 .left{
     width:42%;
     background:linear-gradient(150deg,#4b2070,#8e44ad);
@@ -49,7 +47,6 @@ body{
     color:white;
 }
 
-/* RIGHT */
 .right{
     width:58%;
     padding:35px;
@@ -127,38 +124,26 @@ body{
 
 
 <div class="register-box">
-
-    <!-- LEFT SIDE -->
     <div class="left">
-
         <div class="left-img">
             👨‍💼
         </div>
-
         <h2>👤 Create<br>Account</h2>
-
         <p>
             Manage your products, orders, customers
             and inventory easily in one place.
         </p>
-
         <div style="font-size:40px;margin-top:20px;">
             🛒 📦 💻
         </div>
-
     </div>
 
-
-    <!-- RIGHT SIDE -->
     <div class="right">
-
         <h2>👤 Registration Form</h2>
         <p class="text-muted mb-4">
             Create your account to get started
         </p>
-
         <form method="POST" action="{{ url_for('register') }}">
-
             <label class="form-label">👤 Username</label>
             <input type="text"
                    name="username"
@@ -204,7 +189,6 @@ body{
             <button type="submit" class="btn-register">
                 ✨ Register
             </button>
-
         </form>
 
         <p class="text-center mt-3 mb-0">
@@ -213,17 +197,12 @@ body{
                 Login here
             </a>
         </p>
-
     </div>
-
 </div>
-
 
 <script>
 function showPassword(id,eye){
-
     let input=document.getElementById(id);
-
     if(input.type==="password"){
         input.type="text";
         eye.innerHTML="🙈";

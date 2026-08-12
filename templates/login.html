@@ -2,7 +2,6 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-
 <style>
 body{background:#5b2a86!important}
 
@@ -67,34 +66,23 @@ body{background:#5b2a86!important}
 </style>
 
 <div class="login-page">
-
-    <!-- LEFT SIDE -->
     <div class="login-left">
-
         <div class="user-icon">👨‍💼</div>
-
         <h1>🛒 SmartTech<br>Store</h1>
-
         <p>
             Your Smart Solution For Easy
             Product & Inventory Management.
         </p>
-
         <div class="store-icons">
             🛒 📦 💻
         </div>
-
     </div>
 
-    <!-- LOGIN SIDE -->
     <div class="login-box">
-
         <div class="login-icon">🔐</div>
-
         <h4 class="fw-bold text-center mb-4">
             Login
         </h4>
-
         <form method="POST" action="{{url_for('login')}}">
 
             <label>👤 Username</label>
@@ -103,7 +91,6 @@ body{background:#5b2a86!important}
                    class="form-control mb-3"
                    placeholder="Enter username"
                    required>
-
             <label>🔑 Password</label>
 
             <div class="password-box">
@@ -113,7 +100,6 @@ body{background:#5b2a86!important}
                        class="form-control mb-4"
                        placeholder="Enter password"
                        required>
-
                 <span class="password-eye"
                       onclick="togglePassword('loginPassword',this)">
                     👁️
@@ -123,7 +109,6 @@ body{background:#5b2a86!important}
             <button type="submit" class="btn-login">
                 🔓 Login
             </button>
-
         </form>
 
         <p class="text-center mt-3 mb-0">
@@ -132,15 +117,12 @@ body{background:#5b2a86!important}
                 📝 Register here
             </a>
         </p>
-
     </div>
-
 </div>
 
 <script>
 function togglePassword(id,eye){
     let input=document.getElementById(id);
-
     if(input.type==="password"){
         input.type="text";
         eye.innerHTML="🙈";
