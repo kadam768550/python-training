@@ -231,11 +231,7 @@
                             </h2>
 
 
-                            <p class="product-detail-text">
-                                <strong>Product ID:</strong>
-                                {{ selected_product['id'] }}
-                            </p>
-
+                            
 
                             <p class="product-detail-text">
                                 <strong>Category:</strong>
@@ -593,7 +589,8 @@
 
                     <p>
                         <strong>Order Date:</strong>
-                        {{ order.date }}
+                        {{ order.date.split(' ')[0] }} 
+                        {{ order.date.split(' ')[1] [:5] }}
                     </p>
 
 
@@ -624,10 +621,9 @@
 
 </div>
 
+{% if not selected_product %}
 
 <script>
-
-    {% if not selected_product %}
 
     const searchInput =
         document.getElementById("searchProduct");

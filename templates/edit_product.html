@@ -3,95 +3,267 @@
 
 {% block content %}
 
-<div class="row" justify-content center">
-<div class="col-md-6">
-<div class="card shadow-sm">
-    <div class="card-header py-3" style="background-color: #5f1e3a;">
-        <h5 class="mb-0 text-white">
-            ✏️ Edit Product
-        </h5>
-    </div>
-    <div class="card-body p-4">
-        <!--Current values info -->
-        <div class="alert alert-info" py-2 mb-4">
-            <small>
-                <strong>Editing: </strong>
-                {{ product['name'] }}
-                Category: {{product['category']}}-
-                Price: {{product['price'] }}-
-                Stock: {{product['stock']}}
-            </small>
+<style>
+html,body{
+    background:#5b2a86!important;
+}
+
+.edit-wrapper{
+    max-width:1100px;
+    margin:50px auto;
+}
+
+.info-box{
+    background:linear-gradient(135deg,#6f35a0,#4b2070);
+    color:white;
+    border-radius:20px;
+    min-height:100%;
+    padding:35px 25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.info-icon{
+    width:150px;
+    height:150px;
+    margin:auto auto 25px;
+    background:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
+}
+
+.info-box h2{
+    font-weight:800;
+    color:white;
+}
+
+.info-box p{
+    color:white;
+    font-size:17px;
+}
+
+.info-icons{
+    font-size:38px;
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+}
+
+.edit-card{
+    background:#6f35a0!important;
+    border:2px solid #8e5bc0;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.edit-header{
+    background:#4b2070!important;
+    color:white;
+    padding:20px;
+}
+
+.edit-header h5{
+    margin:0;
+    font-weight:700;
+}
+
+.card-body{
+    background:#6f35a0!important;
+    color:white;
+}
+
+.form-label{
+    color:white!important;
+}
+
+.form-control{
+    background:#7d49aa!important;
+    color:white!important;
+    border:2px solid #a77acb;
+    border-radius:10px;
+}
+
+.form-control::placeholder{
+    color:#eee!important;
+}
+
+.form-control:focus{
+    background:#814db0!important;
+    color:white!important;
+    border-color:#d0a8ef;
+    box-shadow:0 0 0 3px rgba(255,255,255,.15);
+}
+
+.edit-btn{
+    background:#f0ad00;
+    color:#222;
+    border:0;
+    border-radius:10px;
+    padding:11px;
+    font-weight:700;
+}
+
+.cancel-btn{
+    border-radius:10px;
+}
+</style>
+
+
+<div class="container edit-wrapper">
+
+    <div class="row g-4 align-items-stretch">
+
+        <!-- LEFT SIDE -->
+        <div class="col-md-6">
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    👨‍💼
+                </div>
+
+                <h2>
+                    🛒 SmartTech<br>Store
+                </h2>
+
+                <p class="mt-3">
+                    Easily edit product information and
+                    maintain accurate inventory records.
+                </p>
+
+                <div class="info-icons">
+                    🛒 📦 💻
+                </div>
+
+            </div>
+
         </div>
 
-        <form action="{{url_for('edit_product',id=product['id'])}}"
-              method="POST" enctype="multipart/form-data">
 
-              <div class="mb-3">
-                <label class="form-label fw-bold">Product Name</label>
-              
-              <input required
-                     name="product_name"
-                     class="form-control"
-                     placeholder="Enter Product Name"
-                     type="text"
-                     value="{{ product['name'] }}">
-              </div>
+        <!-- RIGHT SIDE -->
+        <div class="col-md-6">
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Category</label>
-                <input required
-                       name="category"
-                       class="form-control"
-                       placeholder="Enter Category"
-                       type="text"
-                       value="{{ product['category'] }}">
+            <div class="edit-card">
+
+                <div class="edit-header">
+                    <h5>✏️ Edit Product</h5>
                 </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Price</label>
-                <input required
-                       name="price"
-                       min="0"
-                       class="form-control"
-                       placeholder="Enter Price"
-                       type="number"
-                       value="{{ product['price'] }}">
+                <div class="card-body p-4">
+
+                    <!-- Current values -->
+                    <div class="alert alert-info py-2 mb-4">
+                        <small>
+                            <strong>Editing:</strong>
+                            {{ product['name'] }}<br>
+                            Category: {{ product['category'] }} -
+                            Price: ₹{{ product['price'] }} -
+                            Stock: {{ product['stock'] }}
+                        </small>
+                    </div>
+
+
+                    <form action="{{url_for('edit_product',id=product['id'])}}"
+                          method="POST"
+                          enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                📦 Product Name
+                            </label>
+
+                            <input required
+                                   name="product_name"
+                                   class="form-control"
+                                   placeholder="Enter Product Name"
+                                   type="text"
+                                   value="{{ product['name'] }}">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                🏷️ Category
+                            </label>
+
+                            <input required
+                                   name="category"
+                                   class="form-control"
+                                   placeholder="Enter Category"
+                                   type="text"
+                                   value="{{ product['category'] }}">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                💰 Price
+                            </label>
+
+                            <input required
+                                   name="price"
+                                   min="0"
+                                   class="form-control"
+                                   placeholder="Enter Price"
+                                   type="number"
+                                   value="{{ product['price'] }}">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                📊 Stock
+                            </label>
+
+                            <input required
+                                   name="stock"
+                                   min="0"
+                                   class="form-control"
+                                   placeholder="Enter Stock"
+                                   type="number"
+                                   value="{{ product['stock'] }}">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                📷 Product Photo
+                            </label>
+
+                            <input name="photo"
+                                   class="form-control"
+                                   type="file"
+                                   accept="image/*">
+                        </div>
+
+
+                        <div class="d-grid">
+
+                            <button type="submit"
+                                    class="edit-btn">
+                                💾 Save Changes
+                            </button>
+
+                            <a href="{{ url_for('product') }}"
+                               class="btn btn-outline-light cancel-btn mt-2">
+                                ❌ Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
                 </div>
-
-            <div class="mb-3">
-                <label class="form-label fw-bold">Stock</label>
-                <input required
-                        name="stock"
-                        min="0"
-                        class="form-control"
-                        placeholder="Enter Stock"
-                        type="number"
-                        value="{{ product['stock'] }}">
             </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Product Photo</label>
-                <input 
-                       name="photo"
-                       class="form-control"
-                       type="file"
-                       accept="image/*">
-            </div>
+        </div>
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-warning fw-bold">
-                    Save Changes
-                </button>
-                <a href="{{ url_for('product') }}"
-                   class="btn btn-outline-secondary mt-2">
-                    Cancel
-                </a>
-            </div>
-        </form>
     </div>
-</div>
-
-</div>
 </div>
 
 {% endblock %}
