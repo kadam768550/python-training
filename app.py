@@ -3,7 +3,6 @@ from http import client
 from click import prompt
 from dotenv import load_dotenv
 from flask import Flask, abort, redirect, render_template, request, flash, session, url_for
-import sqlite3
 from datetime import datetime
 from database import get_db, init_db
 from groq import Groq
@@ -77,14 +76,15 @@ def get_ai_tip(id):
     """
 
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-
-    response = client.chat.completions.create(model="llama-3.1-8b-instant",
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
         messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }])
-    
+            {"role": "system", "content": "You are a helpful assistant for the SmartTech Store Management System."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7, # NEW
+        max_tokens=70 # Limit the response length
+    )
     tip = response.choices[0].message.content
     return render_template("detail.html",product=product,tip=tip)
 
