@@ -132,6 +132,11 @@
                             👁 View
                         </a>
 
+                        <a href="{{ url_for('order', product_id=product.id) }}"
+                            class="btn btn-success px-4">
+                            🛒 Order
+                        </a>
+
                         {% if session.role == 'admin' %}
 
                         <a href="{{ url_for('edit_product', id=product.id) }}"
@@ -144,6 +149,7 @@
                            onclick="return confirm('Delete this product?');">
                             🗑 Delete
                         </a>
+
                         {% endif %}
                     </td>
                 </tr>
