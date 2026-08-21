@@ -83,7 +83,7 @@ def get_ai_tip(id):
             {"role": "user", "content": prompt}
         ],
         temperature=0.7, # NEW
-        max_tokens=70 # Limit the response length
+        max_tokens=80 # Limit the response length
     )
     tip = response.choices[0].message.content
     return render_template("detail.html",product=product,tip=tip)
