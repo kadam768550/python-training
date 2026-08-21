@@ -77,7 +77,7 @@ def get_ai_tip(id):
 
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
     response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",
+        model="qwen/qwen3.6-27b",
         messages=[
             {"role": "system", "content": "You are a helpful assistant for the SmartTech Store Management System."},
             {"role": "user", "content": prompt}
